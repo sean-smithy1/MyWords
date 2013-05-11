@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.13'
 gem 'bootstrap-sass', '2.1'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.0.1'
@@ -8,9 +8,9 @@ gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 
 group :development do
-  gem 'mysql2'
-  gem 'rspec-rails','2.9.0'
-  gem 'guard-rspec','0.5.5'
+  gem 'mysql2', '0.3.11'
+  gem 'rspec-rails', '2.13.1'
+  gem 'guard-rspec', '3.0.0'
 end
 
 # Gems used only for assets and not required
@@ -24,17 +24,17 @@ end
 gem 'jquery-rails'
 
 group :test do
-  gem 'rspec-rails','2.9.0'
+  gem 'rspec-rails', '2.13.1'
   gem 'capybara', '1.1.2'
   gem 'rb-inotify', '~>0.9'
   gem 'libnotify', '0.5.9'
-  gem 'guard-spork', '0.3.2'
-  gem 'spork', '0.9.0'
+  gem 'guard-spork', '1.5.0'
+  gem 'spork', '0.9.2'
   gem 'factory_girl_rails', '4.1.0'
 end
 
 group :production do
-  gem 'mysql2'
+  gem 'mysql2', '0.3.11'
 end
 
 
