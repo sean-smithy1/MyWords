@@ -11,7 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130510034819) do
+ActiveRecord::Schema.define(:version => 20130512103549) do
+
+  create_table "lists", :force => true do |t|
+    t.string   "listname"
+    t.boolean  "listtype"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "lists", ["user_id"], :name => "index_lists_on_user_id"
+
+  create_table "lists_words", :id => false, :force => true do |t|
+    t.integer "words_id"
+    t.integer "lists_id"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -25,5 +40,11 @@ ActiveRecord::Schema.define(:version => 20130510034819) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "words", :force => true do |t|
+    t.string   "word"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end
