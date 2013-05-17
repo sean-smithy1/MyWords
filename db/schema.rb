@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130512103549) do
+ActiveRecord::Schema.define(:version => 20130514103759) do
 
   create_table "lists", :force => true do |t|
     t.string   "listname"
-    t.boolean  "listtype"
+    t.string   "listtype",   :limit => 2, :default => "u"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   add_index "lists", ["user_id"], :name => "index_lists_on_user_id"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(:version => 20130512103549) do
     t.integer "words_id"
     t.integer "lists_id"
   end
+
+  add_index "lists_words", ["words_id", "lists_id"], :name => "index_lists_words_on_words_id_and_lists_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
