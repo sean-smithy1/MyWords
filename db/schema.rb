@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(:version => 20130514103759) do
   add_index "lists", ["user_id"], :name => "index_lists_on_user_id"
 
   create_table "lists_words", :id => false, :force => true do |t|
-    t.integer "words_id"
-    t.integer "lists_id"
+    t.integer "word_id"
+    t.integer "list_id"
   end
 
   add_index "lists_words", ["words_id", "lists_id"], :name => "index_lists_words_on_words_id_and_lists_id"
