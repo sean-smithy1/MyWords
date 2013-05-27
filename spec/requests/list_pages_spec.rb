@@ -1,11 +1,15 @@
 require 'spec_helper'
 
-describe "ListPages" do
-  describe "GET /list_pages" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get list_pages_index_path
-      response.status.should be(200)
-    end
+describe "List pages" do
+  subject { page }
+  let(:List) { FactoryGirl.create(:list) }
+
+  describe "profile page" do
+    let(:List) { FactoryGirl.create(:list) }
+ 
+    before { visit user_path(list) }
+
+    it { should have_selector('h1',    text: user.name) }
+    it { should have_selector('title', text: user.name) }
   end
 end
