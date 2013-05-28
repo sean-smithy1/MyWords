@@ -1,0 +1,20 @@
+<div id="LHM" class ="pull-left">
+    <ul class="nav nav-list">
+      <li class="nav-header">Free Lists</li>
+      <li><a href="#">Dolch</a></li>
+      <li><a href="#">Top 100</a></li>
+      <li><a href="#">Red Sight Words</a></li>
+      <li><a href="#">Blue Sight Words</a></li>
+    <li class="nav-header">My Lists</li>
+    <% if signed_in? %>
+      <%= render 'lists/userlists' %>
+    <% else %>
+    <li><a href="#">sign in?</a>
+    <% end %>
+    <li class="nav-header">My Schools Lists</li>
+    <% if signed_in? %>
+    <% else %>
+    <li><a href="#">sign-in?</a>
+    <% end %>
+    </ul>
+  </div>
