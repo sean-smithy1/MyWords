@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   has_many :lists, dependent: :destroy
 
+
   private
 
     def create_remember_token
