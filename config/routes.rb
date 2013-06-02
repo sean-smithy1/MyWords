@@ -1,7 +1,7 @@
 MyWords::Application.routes.draw do
 
-  resources :users do
-    resources :lists
+  resources :users
+  resources :lists
   
   resources :sessions, only: [:new, :create, :destroy]
   root to: 'static_pages#home'

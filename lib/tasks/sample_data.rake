@@ -20,4 +20,7 @@ def make_users
                  password: password,
                  password_confirmation: password)
   end
+users=User.all(limit: 6)
+all
+
 end
