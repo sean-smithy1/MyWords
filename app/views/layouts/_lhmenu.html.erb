@@ -8,7 +8,7 @@
     <li class="nav-header">My Lists</li>
     <% if signed_in? %>
       <li>(<%= @user.lists.count %>)</li>
-      <%= render partial: 'lists/userlists', collection: @lists %>
+      <%= render partial: 'lists/userlists', collection: @user %>
     <% else %>
     <li><a href="#">sign in?</a>
     <% end %>
