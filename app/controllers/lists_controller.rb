@@ -1,18 +1,23 @@
 class ListsController < ApplicationController
-  before_filter :signed_in_user, only: [:create, :destroy]
+  before_filter :signed_in_user, only: [:show, :create, :destroy]
   before_filter :correct_user,   only: :destroy
 
 
   def show
-
+    @list = List.find(params[:id])
   end
+
+  def new
+    @list = List.new
+  end
+
  
   def create
-    @list = current_user.list.build(params[:listname])
+    @list = current_user.lists.build(params[:listname])
     if @list.save
       flash[:success] = "List Created - Now add some Words"
     else
-      @feed_items = []
+      @list = []
       render 'static_pages/home'
     end
   end

@@ -1,0 +1,17 @@
+<% provide(:title, @list.listname) %>
+
+<h1><%= @list.listname %></h1>
+
+<table id="List_words">
+<tr>
+	<%= @list.words.size %>
+</tr>
+
+<% @list.words.each_slice(6) do |slice| %>
+<tr>
+	<% slice.each do |w| %>
+		<td><%= w.word %></td>
+	<% end %>
+</tr>
+<% end %>
+</table>

@@ -7,15 +7,18 @@
       <li><a href="#">Blue Sight Words</a></li>
     <li class="nav-header">My Lists</li>
     <% if signed_in? %>
-      <li>(<%= @user.lists.count %>)</li>
-      <%= render partial: 'lists/userlists', collection: @user %>
+      <% current_user.lists.each do |list| %>
+        <li><%= link_to list.listname, user_list_path(current_user, list) %></li>
+      <% end %>
     <% else %>
-    <li><a href="#">sign in?</a>
+      <li><a href="signin_path">sign in?</a></li>
     <% end %>
     <li class="nav-header">My Schools Lists</li>
     <% if signed_in? %>
     <% else %>
+
     <li><a href="#">sign-in?</a>
+
     <% end %>
     </ul>
   </div>

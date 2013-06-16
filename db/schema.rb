@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130524015316) do
+ActiveRecord::Schema.define(:version => 20130610091657) do
 
   create_table "lists", :force => true do |t|
     t.string   "listname",                                 :null => false
@@ -44,9 +44,11 @@ ActiveRecord::Schema.define(:version => 20130524015316) do
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
   create_table "words", :force => true do |t|
-    t.string   "word"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "word",       :limit => 35
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
+
+  add_index "words", ["word"], :name => "index_words_on_word", :unique => true
 
 end
