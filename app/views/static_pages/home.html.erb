@@ -1,12 +1,9 @@
 <div class="center hero-unit">
 	<h1>MyWords</h1>
-
-    <h2>
-      This is the home page for the MyWords spelling list appilication
-    </h2>
-
+	</br>
+	</br>
 	<% if signed_in? %>
-    
+    	<p> Welcome Back <%= current_user.name %> </p>
 	<% else %>
 		<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
 	<% end %>

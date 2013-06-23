@@ -7,8 +7,9 @@
       <li><a href="#">Blue Sight Words</a></li>
     <li class="nav-header">My Lists</li>
     <% if signed_in? %>
-      <% current_user.lists.each do |list| %>
-        <li><%= link_to list.listname, user_list_path(current_user, list) %></li>
+      <% mylists(current_user) %>
+      <% @mylists.each do |list| %>
+        <li><%= link_to list.listname, list_path(list.id) %></li>
       <% end %>
     <% else %>
       <li><a href="signin_path">sign in?</a></li>
