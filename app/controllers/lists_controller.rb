@@ -7,16 +7,16 @@ class ListsController < ApplicationController
   end
 
   def show
-    @list = List.find(params[:id])
+    @list = current_user.lists.find(params[:id])
   end
  
   def create
-    @list = current_user.lists.build(params[:listname])
+    @list = current_user.lists.build(params[:list])
     if @list.save
       flash[:success] = "List Created - Now add some Words"
+      redirect_to @list
     else
-      @list = []
-      render 'static_pages/home'
+      render 'new'
     end
   end
 

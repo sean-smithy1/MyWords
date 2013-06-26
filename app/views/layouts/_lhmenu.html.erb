@@ -9,11 +9,14 @@
     <% if signed_in? %>
       <% mylists(current_user) %>
       <% @mylists.each do |list| %>
-        <li><%= link_to list.listname, list_path(list.id) %></li>
+        <li><%= link_to list.listname, list_path(list.id) %>
+        </li>
       <% end %>
+
     <% else %>
       <li><a href="signin_path">sign in?</a></li>
     <% end %>
+
     <li class="nav-header">My Schools Lists</li>
     <% if signed_in? %>
     <% else %>

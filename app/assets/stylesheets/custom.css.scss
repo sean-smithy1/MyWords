@@ -188,3 +188,32 @@ aside {
     }
   }
 }
+
+/*
+ * HTML5 Boilerplate
+ *
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+    }
+
+.drop_font {
+  margin-bottom: 30px;
+  vertical-align: bottom;
+  font-size:.5em;
+  margin-bottom: 30px;
+}

@@ -1,8 +1,10 @@
 <% provide(:title, @list.listname) %>
 
-<h1><%= @list.listname %></h1>
+<h1 style="float:left"><%= @list.listname %>
+<span class="drop_font"><%= link_to "delete", @list, method: :delete,
+ 			data: { confirm: "You sure?" } %></span></h1>
 
-<table id="List_words">
+<table id="List_words" class = "clearfix:both">
 <tr>
 	<%= @list.words.size %>
 </tr>
