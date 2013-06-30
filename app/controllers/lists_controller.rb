@@ -25,6 +25,15 @@ class ListsController < ApplicationController
     redirect_to root_url
   end
 
+  def update
+    if @list.update_attributes(params[:list])
+      flash[:success] = "Profile updated"
+      redirect_to @list
+    else
+      render 'new'
+    end
+  end
+
  private
 
     def correct_user

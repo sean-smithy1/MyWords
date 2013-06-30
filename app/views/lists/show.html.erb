@@ -5,16 +5,16 @@
  			data: { confirm: "You sure?" } %></span></h1>
 </div>
 
-<table id="List_words">
-<tr>
-	<%= @list.words.size %>
-</tr>
+<%= form_for @list, :url => { action: "update" } do |list_form| %>
 
-<% @list.words.each_slice(6) do |slice| %>
-<tr>
-	<% slice.each do |w| %>
-		<td><%= w.word %></td>
-	<% end %>
-</tr>
+<div><%= list_form.text_field :listname %></div>
+
+<% @myarray = @list.words %>
+<%= list_form.fields_for :myarray do |mywords| %>
+	<div id="">
+		<%= mywords.text_field :word %>
+	<div>
 <% end %>
-</table>
+
+<%= list_form.submit "Update List", class: "btn btn-large btn-primary" %>
+<% end %>

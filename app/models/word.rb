@@ -3,6 +3,7 @@ class Word < ActiveRecord::Base
 
   validates :word, presence: true, length: { maximum: 45 }
 
-  has_and_belongs_to_many :lists
+  has_many :lists_words
+  has_many :lists, through: :lists_words
   
 end

@@ -6,7 +6,10 @@ class List < ActiveRecord::Base
   validates :listtype, length: { :maximum => 1 }, format: {:with => /\Au|s\Z/}
 
   belongs_to :user
-  has_and_belongs_to_many :words
+  has_many :lists_words
+  has_many :words, through: :lists_words
+
+  accepts_nested_attributes_for :words
 
 end
 
