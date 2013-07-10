@@ -1,17 +1,13 @@
 <% provide(:title, @list.listname) %>
-<div class="clearfix">
-	<h1 style="float:left"><%= @list.listname %>
-	<span class="drop_font"><%= link_to "delete", @list, method: :delete,
- 			data: { confirm: "You sure?" } %></span></h1>
-</div>
 
-<%= form_for @list, :url => { action: "update" } do |list_form| %>
+<%= form_for @list, :url => {action: "update" } do |list_form| %>
 
-<div><%= list_form.text_field :listname %></div>
+<div><%= list_form.text_field :listname %>
+<span class="drop_font"><%= link_to "delete", @list, method: :delete,
+ 			data: { confirm: "You sure?" } %></span></h1></div>
 
-<% @myarray = @list.words %>
-<%= list_form.fields_for :myarray do |mywords| %>
-	<div id="">
+<%= list_form.fields_for :words do |mywords| %>
+	<div class="list_table">
 		<%= mywords.text_field :word %>
 	<div>
 <% end %>

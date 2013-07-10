@@ -1,5 +1,5 @@
 class Word < ActiveRecord::Base
-  attr_accessible :word
+  attr_accessible :word, :id
 
   validates :word, presence: true, length: { maximum: 45 }
 

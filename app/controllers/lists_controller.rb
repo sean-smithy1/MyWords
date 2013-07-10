@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_filter :signed_in_user, only: [:show, :create, :destroy]
-  before_filter :correct_user,   only: :destroy
+  before_filter :correct_user,   only: [:destroy, :update]
 
   def new
     @list = List.new
@@ -26,8 +26,10 @@ class ListsController < ApplicationController
   end
 
   def update
+    @list=current_user.lists.find(params[:id])
+
     if @list.update_attributes(params[:list])
-      flash[:success] = "Profile updated"
+      flash[:success] = "List Updated"
       redirect_to @list
     else
       render 'new'
