@@ -1,16 +1,14 @@
 <% provide(:title, @list.listname) %>
 
-<%= form_for @list, :url => {action: "update" } do |list_form| %>
+<%= form_for @list, :url => {action: "update" } do |f| %>
 
-<div><%= list_form.text_field :listname %>
-<span class="drop_font"><%= link_to "delete", @list, method: :delete,
+<div><%= f.text_field :listname %>
+<span class="drop_font"><%= link_to "delete", @list, method: :_destroy,
  			data: { confirm: "You sure?" } %></span></h1></div>
 
-<%= list_form.fields_for :words do |mywords| %>
-	<div class="list_table">
-		<%= mywords.text_field :word %>
-	<div>
+<%= f.fields_for :words do |builder| %>
+	<%= render 'words', f: builder %>
 <% end %>
 
-<%= list_form.submit "Update List", class: "btn btn-large btn-primary" %>
+<%= f.submit "Update List", class: "btn btn-large btn-primary" %>
 <% end %>

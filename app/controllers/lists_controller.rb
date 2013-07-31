@@ -7,34 +7,37 @@ class ListsController < ApplicationController
   end
 
   def show
-    @list = current_user.lists.find(params[:id])
+    @list = List.find(params[:id])
   end
  
   def create
-    @list = current_user.lists.build(params[:list])
+    @list = current_user.lists.new(params[:list])
     if @list.save
-      flash[:success] = "List Created - Now add some Words"
-      redirect_to @list
+      redirect_to @list, notice: "Successfully created a list."
     else
-      render 'new'
+      render :new
     end
+  end
+
+  def edit
+    @list = List.find(params[:id])
   end
 
   def destroy
+    @list = List.find(params[:id])
     @list.destroy
-    redirect_to root_url
+    redirect_to root_url, notice: "List removed."
   end
 
   def update
-    @list=current_user.lists.find(params[:id])
-
-    if @list.update_attributes(params[:list])
-      flash[:success] = "List Updated"
-      redirect_to @list
-    else
-      render 'new'
+    @list = List.find(params[:id])
+    if @list.lists_words.update_attributes(params[:words])
+      redirect_to @list, notice: "Successfully updated list."
+    else 
+      render :edit
     end
   end
+
 
  private
 

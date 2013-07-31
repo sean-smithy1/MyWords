@@ -3,13 +3,13 @@ class List < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :listname, presence: true, length: { :maximum => 45 }
-  validates :listtype, length: { :maximum => 1 }, format: {:with => /\Au|s\Z/}
+  validates :listtype, length: { :maximum => 1 }, format: {:with => /\Au|s|f\Z/}
 
   belongs_to :user
   has_many :lists_words
   has_many :words, through: :lists_words
 
-  accepts_nested_attributes_for :words
+  accepts_nested_attributes_for :words, allow_destroy: true
 
 end
 

@@ -5,19 +5,24 @@
       <li><a href="#">Top 100</a></li>
       <li><a href="#">Red Sight Words</a></li>
       <li><a href="#">Blue Sight Words</a></li>
-  <% if signed_in? %>
     <li class="nav-header">My Lists</li>
-  <% mylists(current_user) %>
-    <% @mylists.each do |list| %>
-      <li><%= link_to list.listname, list_path(list.id) %>
-      </li>
-    <% end %>
-    <li class="nav-header">My Schools Lists</li>
-    <% @schoollists.each do |list| %>
+    <% if signed_in? %>
+      <% mylists(@user.id) %>
+      <% @mylists.each do |list| %>
         <li><%= link_to list.listname, list_path(list.id) %>
-        </li>  
+        </li>
+      <% end %>
+
+    <% else %>
+      <li><a href="signin_path">sign in?</a></li>
+    <% end %>
+
+    <li class="nav-header">My Schools Lists</li>
+    <% if signed_in? %>
+    <% else %>
+
+    <li><a href="#">sign-in?</a>
+
     <% end %>
     </ul>
-  <% end %>
-</div>
-  
+  </div>
