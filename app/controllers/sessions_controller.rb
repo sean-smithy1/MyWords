@@ -18,4 +18,11 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to root_url
   end
+
+  private
+
+  def session_params
+    params.require(:person).permit(:name, :age)
+  end
+
 end

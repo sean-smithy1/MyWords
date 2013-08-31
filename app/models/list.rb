@@ -1,5 +1,5 @@
 class List < ActiveRecord::Base
-  attr_accessible :user_id, :listname, :listtype, :words_attributes
+  # attr_accessible :user_id, :listname, :listtype, :words_attributes
 
   validates :user_id, presence: true
   validates :listname, presence: true, length: { :maximum => 45 }

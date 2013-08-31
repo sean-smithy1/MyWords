@@ -9,7 +9,7 @@ class ListsController < ApplicationController
   def show
     @list = List.find(params[:id])
   end
- 
+
   def create
     @list = current_user.lists.new(params[:list])
     if @list.save
@@ -31,9 +31,9 @@ class ListsController < ApplicationController
 
   def update
     @list = List.find(params[:id])
-    if @list.lists_words.update_attributes(params[:words])
+    if @list.lists_words.update_attributes(params[:words_attributes])
       redirect_to @list, notice: "Successfully updated list."
-    else 
+    else
       render :edit
     end
   end
@@ -41,8 +41,12 @@ class ListsController < ApplicationController
 
  private
 
-    def correct_user
-      @list = current_user.lists.find_by_id(params[:id])
-      redirect_to root_url if @list.nil?
-    end
+  def user_params
+    params.require(:list).permit(:user_id, :listname, :listtype, :words_attributes)
+  end
+
+  def correct_user
+    @list = current_user.lists.find_by_id(params[:id])
+    redirect_to root_url if @list.nil?
+  end
 end
