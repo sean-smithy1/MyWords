@@ -31,8 +31,8 @@ class ListsController < ApplicationController
 
   def update
     @list = List.find(params[:id])
-    if @list.lists_words.update_attributes(params[:words_attributes])
-      redirect_to @list, notice: "Successfully updated list."
+      if @list.update(user_params)
+        redirect_to @list, notice: "Successfully updated list."
     else
       render :edit
     end

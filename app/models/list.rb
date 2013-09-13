@@ -11,5 +11,7 @@ class List < ActiveRecord::Base
 
   accepts_nested_attributes_for :words, allow_destroy: true
 
+
+
 end
 
