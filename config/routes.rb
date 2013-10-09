@@ -12,6 +12,7 @@ MyWords::Application.routes.draw do
   get '/help',    to: 'static_pages#help'
   get '/about',   to: 'static_pages#about'
   get '/contacts', to: 'static_pages#contacts'
+  get '/import', to: 'static_pages#import'
 
   get '/signup',  to: 'users#new'
   get '/signin',  to: 'sessions#new'

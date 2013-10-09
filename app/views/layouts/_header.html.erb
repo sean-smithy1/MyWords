@@ -6,9 +6,10 @@
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Help", help_path %></li>
+          <li><%= link_to "Import", import_path %></li>
           <% if signed_in? %>
             <li id="fat-menu" class="dropdown">
-              
+
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 MyLists <b class="caret"></b>
               </a>

@@ -11,7 +11,7 @@ class ListsController < ApplicationController
   end
 
   def create
-    @list = current_user.lists.new(params[:list])
+    @list = current_user.lists.new(list_params)
     if @list.save
       redirect_to @list, notice: "Successfully created a list."
     else
@@ -31,7 +31,7 @@ class ListsController < ApplicationController
 
   def update
     @list = List.find(params[:id])
-      if @list.update(user_params)
+      if @list.update(list_params)
         redirect_to @list, notice: "Successfully updated list."
     else
       render :edit
@@ -41,8 +41,9 @@ class ListsController < ApplicationController
 
  private
 
-  def user_params
-    params.require(:list).permit(:user_id, :listname, :listtype, :words_attributes)
+  def list_params
+    params.require(:list).permit(:id, :listname, :listtype,
+     :words_attributes => [:id, :word])
   end
 
   def correct_user

@@ -3,12 +3,15 @@
 <%= form_for @list, :url => {action: "update" } do |f| %>
 
 <div><%= f.text_field :listname %>
-<span class="drop_font"><%= link_to "delete", @list, method: :_destroy,
+<span class="drop_font"><%= link_to "delete", @list, method: :delete,
  			data: { confirm: "You sure?" } %></span></h1></div>
 
 <%= f.fields_for :words do |builder| %>
-	<%= render 'words', f: builder %>
+	<%= render 'word_fields', f: builder %>
 <% end %>
+
+<p><%= link_to_add_fields "Add Word", f, :words %></p>
+
 
 <%= f.submit "Update List", class: "btn btn-large btn-primary" %>
 <% end %>
