@@ -1,0 +1,28 @@
+<h1>word Import</h1>
+
+<p>A CSV or Excel file can be used to import records. The first row should be the column name. The following columns are allowed.</p>
+
+<ul>
+       <li>
+        <strong>word</strong> -
+        upto 45 characters no space
+      </li>
+</ul>
+
+<%= form_for @word_import do |f| %>
+  <% if @word_import.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@word_import.errors.count, "error") %> prohibited this import from completing:</h2>
+      <ul>
+      <% @word_import.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.file_field :file %>
+  </div>
+  <div class="buttons"><%= f.submit "Import" %></div>
+<% end %>
