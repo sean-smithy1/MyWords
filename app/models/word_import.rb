@@ -30,22 +30,23 @@ attr_accessor :file
   end
 
   def load_imported_words
+    @list = List.find(@list_id)
     spreadsheet = open_spreadsheet
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).map do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      word = Word.find_by_id(row["id"]) || Word.new
-      word.attributes = row.to_hash.slice(*Word)
-      word
+      @list.words.create(row.to_hash)
     end
   end
 
   def open_spreadsheet
     case File.extname(file.original_filename)
-    when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
-    when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
-    when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
-    else raise "Unknown file type: #{file.original_filename}"
+      when ".ods" then Roo::OpenOffice.new(file.path, nil, :ignore)
+      when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
+      when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
+      when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
+    else
+      raise "Unknown file type: #{file.original_filename}"
     end
   end
 end
