@@ -4,12 +4,10 @@ before_filter :signed_in_user, only: [:new, :create]
 before_filter :correct_user, only: [:new, :create]
 
   def new
-    @list=List.find(params[:list_id])
     @word_import = WordImport.new
   end
 
   def create
-    @list=List.find(params[:list_id])
     @word_import = WordImport.new(word_import_params)
     if @word_import.save
       redirect_to root_url, notice: "Imported words successfully."
@@ -19,7 +17,8 @@ before_filter :correct_user, only: [:new, :create]
   end
 
   def word_import_params
-    params.require(:word_import).permit(:file, :list_id)
+    params.require(:word_import).permit(:file)
+    params.require(:list_id)
   end
 
 private

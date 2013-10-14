@@ -4,6 +4,7 @@ include ActiveModel::Model
 attr_accessor :file
 
   def initialize(attributes = {})
+    @list=attributes["list_id"]
     attributes.each { |name, value| send("#{name}=", value) }
   end
 
@@ -30,7 +31,7 @@ attr_accessor :file
   end
 
   def load_imported_words
-    @list = List.find(@list_id)
+    @list = List.find(@list)
     spreadsheet = open_spreadsheet
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).map do |i|
