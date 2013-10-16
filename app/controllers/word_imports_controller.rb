@@ -17,8 +17,8 @@ before_filter :correct_user, only: [:new, :create]
   end
 
   def word_import_params
+    params[:word_import].merge("@list_id" => 4)
     params.require(:word_import).permit(:file)
-    params.require(:list_id)
   end
 
 private

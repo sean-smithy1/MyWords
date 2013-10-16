@@ -5,7 +5,7 @@ class List < ActiveRecord::Base
   validates :listtype, length: { :maximum => 1 }, format: {:with => /\Au|s|f\Z/}
 
   belongs_to :user
-  has_many :lists_words, dependent: :destroy
+  has_many :lists_words, :dependent => :destroy
   has_many :words, through: :lists_words
 
   accepts_nested_attributes_for :words, allow_destroy: true

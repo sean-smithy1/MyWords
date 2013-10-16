@@ -1,10 +1,9 @@
 class WordImport
 include ActiveModel::Model
 
-# attr_accessor :file
+  attr_accessor :file
 
   def initialize(attributes = {})
-#    @list_id=attributes["list_id"]
     attributes.each { |name, value| send("#{name}=", value) }
   end
 
@@ -31,7 +30,8 @@ include ActiveModel::Model
   end
 
   def load_imported_words
-    @list = List.find(@list_id)
+    Rails.logger.info "**Here is what obj.file has in it: #{file.inspect}"
+    @list = List.find(file.list_id)
     spreadsheet = open_spreadsheet
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).map do |i|
@@ -51,3 +51,4 @@ include ActiveModel::Model
     end
   end
 end
+
