@@ -7,11 +7,10 @@
  			data: { confirm: "You sure?" } %></span></h1></div>
 
 <%= f.fields_for :words do |builder| %>
-  <%= render 'word_fields', f: builder %>
+          <%= render 'word_fields', f: builder %>
 <% end %>
 
 <p><%= link_to_add_fields "Add Word", f, :words %></p>
-
 <p><%= link_to "Import words", new_word_import_path(list_id: @list.id) %></p>
 
 <%= f.submit "Update List", class: "btn btn-large btn-primary" %>

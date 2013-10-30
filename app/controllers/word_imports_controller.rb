@@ -1,7 +1,7 @@
 class WordImportsController < ApplicationController
 
 before_filter :signed_in_user, only: [:new, :create]
-before_filter :correct_user, only: [:new, :create]
+before_filter :list_owner, only: [:new, :create]
 
   def new
     @word_import = WordImport.new
@@ -9,6 +9,7 @@ before_filter :correct_user, only: [:new, :create]
 
   def create
     @word_import = WordImport.new(word_import_params)
+    @word_import.list_id=params[:list_id]
     if @word_import.save
       redirect_to root_url, notice: "Imported words successfully."
     else
@@ -17,14 +18,11 @@ before_filter :correct_user, only: [:new, :create]
   end
 
   def word_import_params
-    params[:word_import].merge("@list_id" => 4)
     params.require(:word_import).permit(:file)
   end
 
-private
-
-  def correct_user
-    @list = current_user.lists.find_by_id(params[:list_id])
+  def list_owner
+    @list = current_user.lists.find_by_id(params[:id])
     redirect_to root_url if @list.nil?
   end
 end

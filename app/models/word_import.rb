@@ -1,7 +1,9 @@
 class WordImport
 include ActiveModel::Model
 
-  attr_accessor :file
+MAXWORDS=5
+
+  attr_accessor :file, :list_id
 
   def initialize(attributes = {})
     attributes.each { |name, value| send("#{name}=", value) }
@@ -16,8 +18,8 @@ include ActiveModel::Model
       imported_words.each(&:save!)
       true
     else
-      imported_words.each_with_index do |product, index|
-        product.errors.full_messages.each do |message|
+      imported_words.each_with_index do |word, index|
+        word.errors.full_messages.each do |message|
           errors.add :base, "Row #{index+2}: #{message}"
         end
       end
@@ -30,8 +32,7 @@ include ActiveModel::Model
   end
 
   def load_imported_words
-    Rails.logger.info "**Here is what obj.file has in it: #{file.inspect}"
-    @list = List.find(file.list_id)
+    @list = List.find(@list_id)
     spreadsheet = open_spreadsheet
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).map do |i|
@@ -50,5 +51,15 @@ include ActiveModel::Model
       raise "Unknown file type: #{file.original_filename}"
     end
   end
+
+  def max_num_words?(sp)
+    numwords=sp.last_row-1
+    if numwords >= MAXWORDS
+      true
+    else
+      false
+    end
+  end
+
 end
 
