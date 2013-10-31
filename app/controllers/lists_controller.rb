@@ -31,15 +31,19 @@ class ListsController < ApplicationController
 
   def update
     @list = List.find(params[:id])
-    unique?
-fail
-    begin
-      @list.update(list_params)
-    rescue ActiveRecord::RecordNotUnique => e
-      logger.error "list_controller::create => exception #{e.class.name} : #{e.message}"
-      flash[:error] = "<br/>Detailed error: #{e.message}"
+    if unique_words?
+      begin
+        @list.update(list_params)
+      rescue ActiveRecord::RecordNotUnique => e
+        logger.error "list_controller::create => exception #{e.class.name} : #{e.message}"
+        flash[:error] = "<br/>Detailed error: #{e.message}"
+      end
+        redirect_to @list
+    else
+        logger.error "Words are not unique"
+        flash[:error] = "Words are not unique"
+        redirect_to @list
     end
-      redirect_to @list
   end
 
 
@@ -55,17 +59,14 @@ fail
     redirect_to root_url if @list.nil?
   end
 
-  def unique?
-    submitted_words= params[:words_attributes]
-    submitted_words.values!
+  def unique_words?
+    submitted_words=Array.new
+    params[:list][:words_attributes].each_value { |value| submitted_words << value[:word] }
 
-    if submitted_words.count = submitted_words.uniq.count
+    if submitted_words.length == submitted_words.uniq.length
       true
     else
-      logger.error "Words are not unique"
-      flash[:error] = "Words are not unique"
       false
     end
   end
-
 end
