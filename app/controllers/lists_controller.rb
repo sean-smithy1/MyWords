@@ -37,6 +37,8 @@ class ListsController < ApplicationController
       rescue ActiveRecord::RecordNotUnique => e
         logger.error "list_controller::create => exception #{e.class.name} : #{e.message}"
         flash[:error] = "<br/>Detailed error: #{e.message}"
+        @word=Word.find_by word: params([:list][:word_attributes][:word])
+        Lists_word.create(params[:id], @word_id.id)
       end
         redirect_to @list
     else
@@ -62,11 +64,8 @@ class ListsController < ApplicationController
   def unique_words?
     submitted_words=Array.new
     params[:list][:words_attributes].each_value { |value| submitted_words << value[:word] }
-
-    if submitted_words.length == submitted_words.uniq.length
-      true
-    else
-      false
-    end
+    true if submitted_words.length == submitted_words.uniq.length
   end
+
+
 end
