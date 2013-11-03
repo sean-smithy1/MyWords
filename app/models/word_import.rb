@@ -54,11 +54,7 @@ MAXWORDS=5
 
   def max_num_words?(sp)
     numwords=sp.last_row-1
-    if numwords >= MAXWORDS
-      true
-    else
-      false
-    end
+    true if numwords >= MAXWORDS
   end
 
 end

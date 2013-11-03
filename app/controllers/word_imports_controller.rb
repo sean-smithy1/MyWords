@@ -10,11 +10,13 @@ before_filter :list_owner, only: [:new, :create]
   def create
     @word_import = WordImport.new(word_import_params)
     @word_import.list_id=params[:list_id]
+
     if @word_import.save
       redirect_to root_url, notice: "Imported words successfully."
     else
       render :new
     end
+
   end
 
   def word_import_params
@@ -22,7 +24,7 @@ before_filter :list_owner, only: [:new, :create]
   end
 
   def list_owner
-    @list = current_user.lists.find_by_id(params[:id])
+    @list = current_user.lists.find_by_id(params[:list_id])
     redirect_to root_url if @list.nil?
   end
 end
