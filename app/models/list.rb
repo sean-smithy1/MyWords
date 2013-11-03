@@ -4,9 +4,10 @@ class List < ActiveRecord::Base
   validates :listname, presence: true, length: { :maximum => 45 }
   validates :listtype, length: { :maximum => 1 }, format: {:with => /\Au|s|f\Z/}
 
-  belongs_to :user
-  has_many :lists_words, :dependent => :delete_all
-  has_many :words, through: :lists_words
+  belongs_to :user, :dependent => :destroy
+
+  has_many :lists_words
+  has_many :words, through: :lists_words, :dependent => :delete_all
 
   accepts_nested_attributes_for :words, allow_destroy: true
 

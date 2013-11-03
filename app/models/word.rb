@@ -5,7 +5,7 @@ class Word < ActiveRecord::Base
   has_many :lists_words
   has_many :lists, through: :lists_words
 
-  before_destroy :ensure_not_referenced_by_any_list
+  # before_destroy :ensure_not_referenced_by_any_list
 
 
 end
