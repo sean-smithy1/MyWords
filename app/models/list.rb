@@ -10,6 +10,7 @@ class List < ActiveRecord::Base
   has_many :words, through: :lists_words, :dependent => :delete_all
 
   accepts_nested_attributes_for :words, allow_destroy: true
+  validates_associated :words
 
   def max_words?
     if self.words.count >= 100

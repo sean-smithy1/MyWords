@@ -1,4 +1,5 @@
 class ListsController < ApplicationController
+
   before_filter :signed_in_user, only: [:show, :create, :destroy]
   before_filter :list_owner,   only: [:destroy, :update]
 
@@ -31,9 +32,11 @@ class ListsController < ApplicationController
 
   def update
     @list = List.find(params[:id])
+
     if unique_words?
       begin
         @list.update(list_params)
+        logger.error "List:   #{@list.listname_changed?}"
       rescue ActiveRecord::RecordNotUnique => e
         logger.error "list_controller::create => exception #{e.class.name} : #{e.message}"
         word=Array.new
@@ -48,7 +51,7 @@ class ListsController < ApplicationController
         redirect_to @list
     else
         logger.error "Words are not unique"
-        flash[:error] = "Words are not unique"
+        flash[:error] = "Your list contains duplicate words."
         redirect_to @list
     end
   end
