@@ -1,8 +1,11 @@
 class List < ActiveRecord::Base
 
   validates :user_id, presence: true
-  validates :listname, presence: true, length: { :maximum => 45 }
+  validates :listname, presence: true, length: { maximum: 45, message: "List names should be less than 45 characters" }
+  validates :listname, uniqueness: { scope: :user_id, message: "This list name already exists as part of your list collection" }
+
   validates :listtype, length: { :maximum => 1 }, format: {:with => /\Au|s|f\Z/}
+
   validate :max_words
 
   belongs_to :user, :dependent => :destroy
@@ -16,7 +19,6 @@ class List < ActiveRecord::Base
   def max_words
     errors.add(:max_words, "100 maximun words per list") if words.count > 100
   end
-
 
 end
 
