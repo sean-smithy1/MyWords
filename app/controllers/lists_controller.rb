@@ -41,7 +41,6 @@ class ListsController < ApplicationController
         logger.error "list_controller::create => exception #{e.class.name} : #{e.message}"
         word=Array.new
         params[:list][:words_attributes].each_value do |key|
-          logger.error "Params at this point are: #{params[:list][:words_attributes]}"
           unless @list.words.exists?(Word.find_by(word: key[:word]))
             word = Word.find_by(word: key[:word])
             @list.words << word
