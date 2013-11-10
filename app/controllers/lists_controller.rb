@@ -31,29 +31,29 @@ class ListsController < ApplicationController
   end
 
   def update
-    @list = List.find(params[:id])
+    list = List.find(params[:id])
 
-    if unique_words?
-      begin
-        @list.update(list_params)
-        logger.error "List:   #{@list.listname_changed?}"
-      rescue ActiveRecord::RecordNotUnique => e
-        logger.error "list_controller::create => exception #{e.class.name} : #{e.message}"
-        word=Array.new
-        params[:list][:words_attributes].each_value do |key|
-          unless @list.words.exists?(Word.find_by(word: key[:word]))
-            word = Word.find_by(word: key[:word])
-            @list.words << word
-          end
-        end
+    unless unique_words?
+      flash[:error] = "Your list contains duplicate words."
+      redirect_to :back
+      return
+    end
+
+    begin
+      @list.update(list_params)
+      logger.error "List:   #{@list.listname_changed?}"
+    rescue ActiveRecord::RecordNotUnique => e
+      logger.error "list_controller::create => exception #{e.class.name} : #{e.message}"
+      word=Array.new
+      params[:list][:words_attributes].each_value do |key|
+      unless @list.words.exists?(Word.find_by(word: key[:word]))
+        word = Word.find_by(word: key[:word])
+        @list.words << word
       end
-        redirect_to @list
-    else
-        logger.error "Words are not unique"
-        flash[:error] = "Your list contains duplicate words."
-        redirect_to @list
     end
   end
+  redirect_to @list
+end
 
 
  private

@@ -7,5 +7,10 @@ class Word < ActiveRecord::Base
 
   # before_destroy :ensure_not_referenced_by_any_list
 
+  def update_or_create(words)
+
+
+  end
+
 
 end

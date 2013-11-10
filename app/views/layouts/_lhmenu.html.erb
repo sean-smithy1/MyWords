@@ -7,17 +7,16 @@
       <li><a href="#">Blue Sight Words</a></li>
   <% if signed_in? %>
     <li class="nav-header">My Lists</li>
-  <% mylists(current_user) %>
-    <% @mylists.each do |list| %>
+    <% current_user.my_lists.each do |list| %>
       <li><%= link_to list.listname, list_path(list.id) %>
       </li>
     <% end %>
     <li class="nav-header">My Schools Lists</li>
-    <% @schoollists.each do |list| %>
+    <% current_user.my_school_lists.each do |list| %>
         <li><%= link_to list.listname, list_path(list.id) %>
-        </li>  
+        </li>
     <% end %>
     </ul>
   <% end %>
 </div>
-  
+
