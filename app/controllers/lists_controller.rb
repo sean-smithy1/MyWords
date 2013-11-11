@@ -20,38 +20,35 @@ class ListsController < ApplicationController
     end
   end
 
-  def edit
-    @list = List.find(params[:id])
-  end
-
   def destroy
     @list = List.find(params[:id])
     @list.destroy
     redirect_to root_url, notice: "List removed."
   end
 
-  def update
+  def edit
     @list = List.find(params[:id])
+    @words=@list.words
+  end
 
-    # submitted words are unique
+  def update
+
     unless unique_words?
       flash[:error] = "Your list contains duplicate words."
-      redirect_to :back
+      render :edit
       return
     end
 
-    @list.listname=params[:list][:listname]
-    flash[:error] = "List Name Changed" if @list.listname_changed?
+    @list.attributes=list_params
+    logger.error "Changes: #{@list.changed}"
 
-    # changed_words need to be updated if they arn't associated with
-    # another list OR Added if they are.
-    @list.update(list_params)
-
-
-
-
-    render :show
-end
+    if @list.save
+      flash[:success] = "List Update"
+      redirect_to @list
+    else
+      render :edit
+    end
+  end
 
 
  private
