@@ -12,7 +12,7 @@ class ListsController < ApplicationController
   end
 
   def create
-    @list = current_user.lists.new(list_params)
+    @list=current_user.lists.build(list_params)
     if @list.save
       redirect_to @list, notice: "Successfully created a list."
     else
@@ -21,35 +21,23 @@ class ListsController < ApplicationController
   end
 
   def destroy
-    @list = List.find(params[:id])
+    logger.error " The List to destroy is: #{@list.to_s}"
     @list.destroy
     redirect_to root_url, notice: "List removed."
   end
 
   def edit
-    @list = List.find(params[:id])
-    @words=@list.words
+    @list = current_user.lists.find(params[:id])
   end
 
   def update
-
-    unless unique_words?
-      flash[:error] = "Your list contains duplicate words."
-      render :edit
-      return
-    end
-
-    @list.attributes=list_params
-    logger.error "Changes: #{@list.changed}"
-
-    if @list.save
-      flash[:success] = "List Update"
-      redirect_to @list
+    @list.attributes = list_params
+    if @list.write_words
+      redirect_to @list, notice: "List Update"
     else
       render :edit
     end
   end
-
 
  private
 
@@ -63,9 +51,4 @@ class ListsController < ApplicationController
     redirect_to root_url if @list.nil?
   end
 
-  def unique_words?
-    submitted_words=Array.new
-    params[:list][:words_attributes].each_value { |key| submitted_words << key[:word] }
-    true if submitted_words.length == submitted_words.uniq.length
-  end
 end

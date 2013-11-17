@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.0'
-gem 'bcrypt-ruby', '~> 3.0.0' #Secure Passwords
-gem 'bootstrap-will_paginate', '0.0.6' # Paginate records
-# gem 'will_paginate', '3.0.3'
+gem 'rails', '4.0.1'
+gem 'bcrypt-ruby', '~> 3.1.2' #Secure Passwords
+gem 'bootstrap-will_paginate', '0.0.10' # Paginate records
+gem 'will_paginate', '3.0.5'
 gem 'roo', '~> 1.12.2' #CSV importing
 
 ### GROUPS ###
 group :development do
-  gem 'mysql2', '0.3.11'
+  gem 'mysql2', '0.3.14'
 end
 
 group :assets do
@@ -32,7 +32,7 @@ group :test do
 end
 
 group :production do
-  gem 'mysql2', '0.3.11'
+  gem 'mysql2', '0.3.14'
 end
 
 group :development, :test do
