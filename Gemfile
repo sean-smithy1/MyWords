@@ -26,9 +26,9 @@ end
 
 group :test do
   gem 'capybara', '1.1.2'
-  gem 'rb-inotify', '~>0.9'
-  gem 'libnotify', '0.5.9'
-  gem 'factory_girl_rails', '4.1.0'
+  # gem 'rb-inotify', '~>0.9'   ** Guard uses these
+  # gem 'libnotify', '0.5.9'       ** Guard uses these
+  gem 'factory_girl_rails', '~>4.3.0'
 end
 
 group :production do
@@ -37,7 +37,8 @@ end
 
 group :development, :test do
   # RSpec (unit tests, some integration tests)
-  gem 'rspec-rails', '2.13.1'
+  gem 'spork-rails', '~>4.0'
+  gem 'rspec-rails', '~>2.0'
   #Creation of test records
   gem 'faker', '1.0.1'
 end

@@ -13,10 +13,13 @@ class ListsController < ApplicationController
 
   def create
     @list=current_user.lists.build(list_params)
-    if @list.save
-      redirect_to @list, notice: "Successfully created a list."
-    else
-      redirect_to @list, notice: "Error - possble duplicate entry"
+    if @list.words_are_unique?
+      if @list.save
+        redirect_to @list, notice: "Successfully created a list."
+      else
+        redirect_to @list, notice: "There was an error saving your list"
+      end
+      redirect_to @list, notice: "Your list has duplicate entries"
     end
   end
 
@@ -32,7 +35,7 @@ class ListsController < ApplicationController
 
   def update
     @list.attributes = list_params
-    if @list.write_words
+    if @list.create_or_associate
       redirect_to @list, notice: "List Update"
     else
       render :edit

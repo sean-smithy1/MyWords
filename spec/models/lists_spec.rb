@@ -7,32 +7,38 @@ describe List do
   end
 
   subject { @list }
-
-  it { should respond_to(:listname) }
-  it { should respond_to(:listtype) }
-
-  describe "should accept s" do
-    before { @list.listtype = "s" }
-    it { should be_valid }
-  end
-
-  describe "should accept u" do
-    before { @list.listtype = "u" }
-    it { should be_valid }
-  end
-
-  describe "should not accept p" do
-    before { @list.listtype = "p" }
-    it { should_not be_valid }
-  end
+  it { should respond_to(:listname, :listtype, :words) }
 
   describe "when list is not present" do
     before { @list.listname = " " }
     it { should_not be_valid }
   end
- 
+
   describe "when listname is too long" do
     before { @list.listname = "a" * 46 }
     it { should_not be_valid }
+  end
+
+#Word Associations
+
+  describe "Creating or Associating Words" do
+    before { @list1=FactoryGirl.create(:list, listname: "List1") }
+
+    it "should create words not in the DB" do
+      @list1.words.count.should == 6
+    end
+
+# Problems with this bit
+    # describe "having duplicate words" do
+    #   @list1.words << Word.new(word: "1_Word")
+    #   it { should_not be_valid }
+    # end
+
+    it "should associate words that exist in the DB" do
+      list2=FactoryGirl.create(:list, listname: "List2")
+      list2.words.count.should == 6
+      Word.count == 6
+    end
+
   end
 end
