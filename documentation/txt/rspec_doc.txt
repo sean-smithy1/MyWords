@@ -1,0 +1,697 @@
+
+List
+  should respond to [:listname, :listtype, :words]
+  when list is not present
+    should not be valid
+  when listname is too long
+    should not be valid
+
+Creating or Associating Words
+  should create words not in the DB
+  should not allow duplicate words (PENDING: Not yet implemented)
+  #<RSpec::Core::Example:0x000000042bd7f8> (PENDING: No reason given)
+  should associate words that exist in the DB
+
+User
+  should respond to #name
+  should respond to #email
+  should respond to #password_digest
+  should respond to #password
+  should respond to #password_confirmation
+  should respond to #admin
+  should respond to #authenticate
+  should respond to #password_confirmation
+  should respond to #remember_token
+  should respond to #authenticate
+  should be valid
+  should not be admin
+  when name is not present
+    should not be valid
+  when name is too long
+    should not be valid
+  when email is not present
+    should not be valid
+  when email format is invalid
+    should be invalid
+  when email format is valid
+    should be valid
+  when email address is already taken
+    should not be valid
+  when password is not present
+    should not be valid
+  when password doesn't match confirmation
+    should not be valid
+  when password confirmation is nil
+    should not be valid
+  return value of authenticate method
+    with valid password
+      should == #<User id: 909, name: "Example User", email: "user@example.com", created_at: "2013-11-21 10:57:43", updated_at: "2013-11-21 10:57:43", admin: false, password_digest: "$2a$04$i15Grj60.2wSySF/vCN3XOXrHAmWW2zZ3mUvhKpM1d9x...", remember_token: "oInzdckOCRITKB_xStor_Q">
+    with invalid password
+      should not == false
+      should be false
+  with a password that's too short
+    should be invalid
+  email address with mixed case
+    should be saved as all lower-case
+  remember token
+    remember_token
+      should not be blank
+  with admin attribute set to 'true'
+    should be admin
+
+Word
+  add some examples to (or delete) /home/seans/rails_projects/MyWords/spec/models/words_spec.rb (PENDING: No reason given)
+
+AuthenticationPages
+  signin page
+    example at ./spec/requests/authentication_pages_spec.rb:14 (FAILED - 1)
+    example at ./spec/requests/authentication_pages_spec.rb:15 (FAILED - 2)
+  signin
+    with invalid information
+      example at ./spec/requests/authentication_pages_spec.rb:24 (FAILED - 3)
+      example at ./spec/requests/authentication_pages_spec.rb:25 (FAILED - 4)
+      after visiting another page
+        example at ./spec/requests/authentication_pages_spec.rb:29 (FAILED - 5)
+    with valid information
+      example at ./spec/requests/authentication_pages_spec.rb:36 (FAILED - 6)
+      example at ./spec/requests/authentication_pages_spec.rb:37 (FAILED - 7)
+      example at ./spec/requests/authentication_pages_spec.rb:38 (FAILED - 8)
+      example at ./spec/requests/authentication_pages_spec.rb:39 (FAILED - 9)
+      example at ./spec/requests/authentication_pages_spec.rb:40 (FAILED - 10)
+      example at ./spec/requests/authentication_pages_spec.rb:41 (FAILED - 11)
+  Authorisation
+    as non-admin users
+      submitting a DELETE request to the Users#destroy action
+        example at ./spec/requests/authentication_pages_spec.rb:51 (FAILED - 12)
+    in the Users controller
+      visiting the edit page
+        example at ./spec/requests/authentication_pages_spec.rb:59 (FAILED - 13)
+      visiting the user index
+        example at ./spec/requests/authentication_pages_spec.rb:64 (FAILED - 14)
+      submitting to the update action
+        should redirect to "/signin"
+      when attempting to visit a protected page
+        after signing in
+          should render the desired protected page (FAILED - 15)
+
+List pages
+  profile page
+    example at ./spec/requests/list_pages_spec.rb:12 (FAILED - 16)
+    example at ./spec/requests/list_pages_spec.rb:13 (FAILED - 17)
+
+Static Pages
+  should have the right links on the layout (FAILED - 18)
+  Home page
+    example at ./spec/requests/static_pages_spec.rb:31 (FAILED - 19)
+    it should behave like all static pages
+      example at ./spec/requests/static_pages_spec.rb:7 (FAILED - 20)
+      example at ./spec/requests/static_pages_spec.rb:8 (FAILED - 21)
+  Help page
+    it should behave like all static pages
+      example at ./spec/requests/static_pages_spec.rb:7 (FAILED - 22)
+      example at ./spec/requests/static_pages_spec.rb:8 (FAILED - 23)
+  About page
+    it should behave like all static pages
+      example at ./spec/requests/static_pages_spec.rb:7 (FAILED - 24)
+      example at ./spec/requests/static_pages_spec.rb:8 (FAILED - 25)
+  Contacts page
+    it should behave like all static pages
+      example at ./spec/requests/static_pages_spec.rb:7 (FAILED - 26)
+      example at ./spec/requests/static_pages_spec.rb:8 (FAILED - 27)
+
+User pages
+  profile page
+    example at ./spec/requests/user_pages_spec.rb:12 (FAILED - 28)
+    example at ./spec/requests/user_pages_spec.rb:13 (FAILED - 29)
+  index
+    example at ./spec/requests/user_pages_spec.rb:22 (FAILED - 30)
+    should list each user (FAILED - 31)
+    pagination
+      example at ./spec/requests/user_pages_spec.rb:33 (FAILED - 32)
+      should list each user (FAILED - 33)
+    delete links
+      example at ./spec/requests/user_pages_spec.rb:43 (FAILED - 34)
+      as an admin user
+        example at ./spec/requests/user_pages_spec.rb:53 (FAILED - 35)
+        should be able to delete another user (FAILED - 36)
+        example at ./spec/requests/user_pages_spec.rb:57 (FAILED - 37)
+  signup page
+    example at ./spec/requests/user_pages_spec.rb:65 (FAILED - 38)
+    example at ./spec/requests/user_pages_spec.rb:66 (FAILED - 39)
+  signup
+    with invalid information
+      should not create a user (FAILED - 40)
+    with valid information
+      should create a user (FAILED - 41)
+  edit
+    page
+      example at ./spec/requests/user_pages_spec.rb:101 (FAILED - 42)
+      example at ./spec/requests/user_pages_spec.rb:102 (FAILED - 43)
+      example at ./spec/requests/user_pages_spec.rb:103 (FAILED - 44)
+    with invalid information
+      example at ./spec/requests/user_pages_spec.rb:108 (FAILED - 45)
+    with valid information
+      example at ./spec/requests/user_pages_spec.rb:122 (FAILED - 46)
+      example at ./spec/requests/user_pages_spec.rb:123 (FAILED - 47)
+      example at ./spec/requests/user_pages_spec.rb:124 (FAILED - 48)
+      example at ./spec/requests/user_pages_spec.rb:125 (FAILED - 49)
+      example at ./spec/requests/user_pages_spec.rb:126 (FAILED - 50)
+
+Pending:
+  Creating or Associating Words should not allow duplicate words
+    # Not yet implemented
+    # ./spec/models/lists_spec.rb:30
+  Creating or Associating Words #<RSpec::Core::Example:0x000000042bd7f8>
+    # No reason given
+    # ./spec/models/lists_spec.rb:30
+  Word add some examples to (or delete) /home/seans/rails_projects/MyWords/spec/models/words_spec.rb
+    # No reason given
+    # ./spec/models/words_spec.rb:4
+
+Failures:
+
+  1) AuthenticationPages signin page 
+     Failure/Error: before { visit signin_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:12:in `block (3 levels) in <top (required)>'
+
+  2) AuthenticationPages signin page 
+     Failure/Error: before { visit signin_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:12:in `block (3 levels) in <top (required)>'
+
+  3) AuthenticationPages signin with invalid information 
+     Failure/Error: before { visit signin_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  4) AuthenticationPages signin with invalid information 
+     Failure/Error: before { visit signin_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  5) AuthenticationPages signin with invalid information after visiting another page 
+     Failure/Error: before { visit signin_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  6) AuthenticationPages signin with valid information 
+     Failure/Error: before { visit signin_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  7) AuthenticationPages signin with valid information 
+     Failure/Error: before { visit signin_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  8) AuthenticationPages signin with valid information 
+     Failure/Error: before { visit signin_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  9) AuthenticationPages signin with valid information 
+     Failure/Error: before { visit signin_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  10) AuthenticationPages signin with valid information 
+     Failure/Error: before { visit signin_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  11) AuthenticationPages signin with valid information 
+     Failure/Error: before { visit signin_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:19:in `block (3 levels) in <top (required)>'
+
+  12) AuthenticationPages Authorisation as non-admin users submitting a DELETE request to the Users#destroy action 
+     Failure/Error: before { sign_in non_admin }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/authentication_pages_spec.rb:47:in `block (4 levels) in <top (required)>'
+
+  13) AuthenticationPages Authorisation in the Users controller visiting the edit page 
+     Failure/Error: before { visit edit_user_path(user) }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:58:in `block (5 levels) in <top (required)>'
+
+  14) AuthenticationPages Authorisation in the Users controller visiting the user index 
+     Failure/Error: before { visit users_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:63:in `block (5 levels) in <top (required)>'
+
+  15) AuthenticationPages Authorisation in the Users controller when attempting to visit a protected page after signing in should render the desired protected page
+     Failure/Error: visit edit_user_path(user)
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/authentication_pages_spec.rb:74:in `block (5 levels) in <top (required)>'
+
+  16) List pages profile page 
+     Failure/Error: before { visit user_path(list) }
+     NameError:
+       undefined local variable or method `list' for #<RSpec::Core::ExampleGroup::Nested_6::Nested_1:0x000000060dec78>
+     # ./spec/requests/list_pages_spec.rb:10:in `block (3 levels) in <top (required)>'
+
+  17) List pages profile page 
+     Failure/Error: before { visit user_path(list) }
+     NameError:
+       undefined local variable or method `list' for #<RSpec::Core::ExampleGroup::Nested_6::Nested_1:0x000000060f77a0>
+     # ./spec/requests/list_pages_spec.rb:10:in `block (3 levels) in <top (required)>'
+
+  18) Static Pages should have the right links on the layout
+     Failure/Error: visit root_path
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/static_pages_spec.rb:12:in `block (2 levels) in <top (required)>'
+
+  19) Static Pages Home page 
+     Failure/Error: before { visit root_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/static_pages_spec.rb:26:in `block (3 levels) in <top (required)>'
+
+  20) Static Pages Home page it should behave like all static pages 
+     Failure/Error: before { visit root_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     Shared Example Group: "all static pages" called from ./spec/requests/static_pages_spec.rb:30
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/static_pages_spec.rb:26:in `block (3 levels) in <top (required)>'
+
+  21) Static Pages Home page it should behave like all static pages 
+     Failure/Error: before { visit root_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     Shared Example Group: "all static pages" called from ./spec/requests/static_pages_spec.rb:30
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/static_pages_spec.rb:26:in `block (3 levels) in <top (required)>'
+
+  22) Static Pages Help page it should behave like all static pages 
+     Failure/Error: before { visit help_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     Shared Example Group: "all static pages" called from ./spec/requests/static_pages_spec.rb:39
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/static_pages_spec.rb:35:in `block (3 levels) in <top (required)>'
+
+  23) Static Pages Help page it should behave like all static pages 
+     Failure/Error: before { visit help_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     Shared Example Group: "all static pages" called from ./spec/requests/static_pages_spec.rb:39
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/static_pages_spec.rb:35:in `block (3 levels) in <top (required)>'
+
+  24) Static Pages About page it should behave like all static pages 
+     Failure/Error: before { visit about_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     Shared Example Group: "all static pages" called from ./spec/requests/static_pages_spec.rb:47
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/static_pages_spec.rb:43:in `block (3 levels) in <top (required)>'
+
+  25) Static Pages About page it should behave like all static pages 
+     Failure/Error: before { visit about_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     Shared Example Group: "all static pages" called from ./spec/requests/static_pages_spec.rb:47
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/static_pages_spec.rb:43:in `block (3 levels) in <top (required)>'
+
+  26) Static Pages Contacts page it should behave like all static pages 
+     Failure/Error: before { visit contacts_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     Shared Example Group: "all static pages" called from ./spec/requests/static_pages_spec.rb:55
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/static_pages_spec.rb:51:in `block (3 levels) in <top (required)>'
+
+  27) Static Pages Contacts page it should behave like all static pages 
+     Failure/Error: before { visit contacts_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     Shared Example Group: "all static pages" called from ./spec/requests/static_pages_spec.rb:55
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/static_pages_spec.rb:51:in `block (3 levels) in <top (required)>'
+
+  28) User pages profile page 
+     Failure/Error: before { visit user_path(user) }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/user_pages_spec.rb:10:in `block (3 levels) in <top (required)>'
+
+  29) User pages profile page 
+     Failure/Error: before { visit user_path(user) }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/user_pages_spec.rb:10:in `block (3 levels) in <top (required)>'
+
+  30) User pages index 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:18:in `block (3 levels) in <top (required)>'
+
+  31) User pages index should list each user
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:18:in `block (3 levels) in <top (required)>'
+
+  32) User pages index pagination 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:18:in `block (3 levels) in <top (required)>'
+
+  33) User pages index pagination should list each user
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:18:in `block (3 levels) in <top (required)>'
+
+  34) User pages index delete links 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:18:in `block (3 levels) in <top (required)>'
+
+  35) User pages index delete links as an admin user 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:18:in `block (3 levels) in <top (required)>'
+
+  36) User pages index delete links as an admin user should be able to delete another user
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:18:in `block (3 levels) in <top (required)>'
+
+  37) User pages index delete links as an admin user 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:18:in `block (3 levels) in <top (required)>'
+
+  38) User pages signup page 
+     Failure/Error: before { visit signup_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/user_pages_spec.rb:63:in `block (3 levels) in <top (required)>'
+
+  39) User pages signup page 
+     Failure/Error: before { visit signup_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/user_pages_spec.rb:63:in `block (3 levels) in <top (required)>'
+
+  40) User pages signup with invalid information should not create a user
+     Failure/Error: before { visit signup_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/user_pages_spec.rb:70:in `block (3 levels) in <top (required)>'
+
+  41) User pages signup with valid information should create a user
+     Failure/Error: before { visit signup_path }
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/requests/user_pages_spec.rb:70:in `block (3 levels) in <top (required)>'
+
+  42) User pages edit page 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:96:in `block (3 levels) in <top (required)>'
+
+  43) User pages edit page 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:96:in `block (3 levels) in <top (required)>'
+
+  44) User pages edit page 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:96:in `block (3 levels) in <top (required)>'
+
+  45) User pages edit with invalid information 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:96:in `block (3 levels) in <top (required)>'
+
+  46) User pages edit with valid information 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:96:in `block (3 levels) in <top (required)>'
+
+  47) User pages edit with valid information 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:96:in `block (3 levels) in <top (required)>'
+
+  48) User pages edit with valid information 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:96:in `block (3 levels) in <top (required)>'
+
+  49) User pages edit with valid information 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:96:in `block (3 levels) in <top (required)>'
+
+  50) User pages edit with valid information 
+     Failure/Error: sign_in user
+     ActionView::Template::Error:
+       Undefined variable: "$grey".
+         (in /home/seans/rails_projects/MyWords/app/assets/stylesheets/_colours.scss:2)
+     # ./app/assets/stylesheets/_colours.scss:2
+     # ./app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb___3056122252963662954_46425240'
+     # ./spec/support/utilities.rb:4:in `sign_in'
+     # ./spec/requests/user_pages_spec.rb:96:in `block (3 levels) in <top (required)>'
+
+Finished in 53.38 seconds
+87 examples, 50 failures, 3 pending
+
+Failed examples:
+
+rspec ./spec/requests/authentication_pages_spec.rb:14 # AuthenticationPages signin page 
+rspec ./spec/requests/authentication_pages_spec.rb:15 # AuthenticationPages signin page 
+rspec ./spec/requests/authentication_pages_spec.rb:24 # AuthenticationPages signin with invalid information 
+rspec ./spec/requests/authentication_pages_spec.rb:25 # AuthenticationPages signin with invalid information 
+rspec ./spec/requests/authentication_pages_spec.rb:29 # AuthenticationPages signin with invalid information after visiting another page 
+rspec ./spec/requests/authentication_pages_spec.rb:36 # AuthenticationPages signin with valid information 
+rspec ./spec/requests/authentication_pages_spec.rb:37 # AuthenticationPages signin with valid information 
+rspec ./spec/requests/authentication_pages_spec.rb:38 # AuthenticationPages signin with valid information 
+rspec ./spec/requests/authentication_pages_spec.rb:39 # AuthenticationPages signin with valid information 
+rspec ./spec/requests/authentication_pages_spec.rb:40 # AuthenticationPages signin with valid information 
+rspec ./spec/requests/authentication_pages_spec.rb:41 # AuthenticationPages signin with valid information 
+rspec ./spec/requests/authentication_pages_spec.rb:51 # AuthenticationPages Authorisation as non-admin users submitting a DELETE request to the Users#destroy action 
+rspec ./spec/requests/authentication_pages_spec.rb:59 # AuthenticationPages Authorisation in the Users controller visiting the edit page 
+rspec ./spec/requests/authentication_pages_spec.rb:64 # AuthenticationPages Authorisation in the Users controller visiting the user index 
+rspec ./spec/requests/authentication_pages_spec.rb:81 # AuthenticationPages Authorisation in the Users controller when attempting to visit a protected page after signing in should render the desired protected page
+rspec ./spec/requests/list_pages_spec.rb:12 # List pages profile page 
+rspec ./spec/requests/list_pages_spec.rb:13 # List pages profile page 
+rspec ./spec/requests/static_pages_spec.rb:11 # Static Pages should have the right links on the layout
+rspec ./spec/requests/static_pages_spec.rb:31 # Static Pages Home page 
+rspec ./spec/requests/static_pages_spec.rb:7 # Static Pages Home page it should behave like all static pages 
+rspec ./spec/requests/static_pages_spec.rb:8 # Static Pages Home page it should behave like all static pages 
+rspec ./spec/requests/static_pages_spec.rb:7 # Static Pages Help page it should behave like all static pages 
+rspec ./spec/requests/static_pages_spec.rb:8 # Static Pages Help page it should behave like all static pages 
+rspec ./spec/requests/static_pages_spec.rb:7 # Static Pages About page it should behave like all static pages 
+rspec ./spec/requests/static_pages_spec.rb:8 # Static Pages About page it should behave like all static pages 
+rspec ./spec/requests/static_pages_spec.rb:7 # Static Pages Contacts page it should behave like all static pages 
+rspec ./spec/requests/static_pages_spec.rb:8 # Static Pages Contacts page it should behave like all static pages 
+rspec ./spec/requests/user_pages_spec.rb:12 # User pages profile page 
+rspec ./spec/requests/user_pages_spec.rb:13 # User pages profile page 
+rspec ./spec/requests/user_pages_spec.rb:22 # User pages index 
+rspec ./spec/requests/user_pages_spec.rb:23 # User pages index should list each user
+rspec ./spec/requests/user_pages_spec.rb:33 # User pages index pagination 
+rspec ./spec/requests/user_pages_spec.rb:34 # User pages index pagination should list each user
+rspec ./spec/requests/user_pages_spec.rb:43 # User pages index delete links 
+rspec ./spec/requests/user_pages_spec.rb:53 # User pages index delete links as an admin user 
+rspec ./spec/requests/user_pages_spec.rb:54 # User pages index delete links as an admin user should be able to delete another user
+rspec ./spec/requests/user_pages_spec.rb:57 # User pages index delete links as an admin user 
+rspec ./spec/requests/user_pages_spec.rb:65 # User pages signup page 
+rspec ./spec/requests/user_pages_spec.rb:66 # User pages signup page 
+rspec ./spec/requests/user_pages_spec.rb:74 # User pages signup with invalid information should not create a user
+rspec ./spec/requests/user_pages_spec.rb:87 # User pages signup with valid information should create a user
+rspec ./spec/requests/user_pages_spec.rb:101 # User pages edit page 
+rspec ./spec/requests/user_pages_spec.rb:102 # User pages edit page 
+rspec ./spec/requests/user_pages_spec.rb:103 # User pages edit page 
+rspec ./spec/requests/user_pages_spec.rb:108 # User pages edit with invalid information 
+rspec ./spec/requests/user_pages_spec.rb:122 # User pages edit with valid information 
+rspec ./spec/requests/user_pages_spec.rb:123 # User pages edit with valid information 
+rspec ./spec/requests/user_pages_spec.rb:124 # User pages edit with valid information 
+rspec ./spec/requests/user_pages_spec.rb:125 # User pages edit with valid information 
+rspec ./spec/requests/user_pages_spec.rb:126 # User pages edit with valid information 

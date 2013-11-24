@@ -3,7 +3,7 @@ MyWords::Application.routes.draw do
   resources :users
 
   resources :lists do
-    resources :words, only: [:new, :create, :edit, :update]
+    resources :words
   end
 
   resources :word_imports, only: [:new, :create]

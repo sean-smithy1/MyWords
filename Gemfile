@@ -14,7 +14,7 @@ end
 group :assets do
   #CSS
   gem 'sass-rails', '~> 4.0.0'
-  gem 'bootstrap-sass'
+  gem 'bootstrap-sass', '~> 3.0.2.0'
 
   # JavaScript
   gem 'coffee-rails', '~> 4.0.0'
