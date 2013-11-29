@@ -9,7 +9,7 @@ List
 Creating or Associating Words
   should create words not in the DB
   should not allow duplicate words (PENDING: Not yet implemented)
-  #<RSpec::Core::Example:0x000000042a8768> (PENDING: No reason given)
+  #<RSpec::Core::Example:0x0000000490c410> (PENDING: No reason given)
   should associate words that exist in the DB
 
 User
@@ -45,7 +45,7 @@ User
     should not be valid
   return value of authenticate method
     with valid password
-      should == #<User id: 144, name: "Example User", email: "user@example.com", created_at: "2013-11-24 21:46:47", updated_at: "2013-11-24 21:46:47", admin: false, password_digest: "$2a$04$g.txM4y4cP6vdJYI4EJRsew6eR4hEzyszdK0NfIWCdq2...", remember_token: "w4Vch7FmlXVVllV3lyJ9Zw">
+      should == #<User id: 73, name: "Example User", email: "user@example.com", created_at: "2013-11-27 22:02:32", updated_at: "2013-11-27 22:02:32", admin: false, password_digest: "$2a$04$dOHXJ1aw/1WvogVgso.N7uDPmluTYjouTW.PdtHwE5OX...", remember_token: "59sTJiid4-fJXbu6LLU3_w">
     with invalid password
       should not == false
       should be false
@@ -74,7 +74,6 @@ AuthenticationPages
         should not has css "div.alert.alert-error"
     with valid information
       should has css "title" with text "Person 1" (FAILED - 1)
-      should has link "Users" (FAILED - 2)
       should has link "Profile"
       should has link "Settings"
       should has link "Sign out"
@@ -96,8 +95,8 @@ AuthenticationPages
 
 List pages
   profile page
-    example at ./spec/requests/list_pages_spec.rb:12 (FAILED - 3)
-    example at ./spec/requests/list_pages_spec.rb:13 (FAILED - 4)
+    example at ./spec/requests/list_pages_spec.rb:12 (FAILED - 2)
+    example at ./spec/requests/list_pages_spec.rb:13 (FAILED - 3)
 
 Static Pages
   should have the right links on the layout
@@ -121,8 +120,8 @@ Static Pages
 
 User pages
   profile page
-    should has css "h1" with text "Person 12"
-    should has css "title" with text "Person 13"
+    should has css "h1" with text "Person 11"
+    should has css "title" with text "Person 12"
   index
     should has css "title" with text "All users"
     should list each user
@@ -133,7 +132,7 @@ User pages
       should not has link "delete"
       as an admin user
         should has link "delete"
-        should be able to delete another user (FAILED - 5)
+        should be able to delete another user (FAILED - 4)
         should not has link "delete"
   signup page
     should has css "h1" with text "Sign up"
@@ -161,7 +160,7 @@ Pending:
   Creating or Associating Words should not allow duplicate words
     # Not yet implemented
     # ./spec/models/lists_spec.rb:30
-  Creating or Associating Words #<RSpec::Core::Example:0x000000042a8768>
+  Creating or Associating Words #<RSpec::Core::Example:0x0000000490c410>
     # No reason given
     # ./spec/models/lists_spec.rb:30
   Word add some examples to (or delete) /home/seans/rails_projects/MyWords/spec/models/words_spec.rb
@@ -175,24 +174,21 @@ Failures:
        expected css "title" with text "Person 1" to return something
      # ./spec/requests/authentication_pages_spec.rb:36:in `block (4 levels) in <top (required)>'
 
-  2) AuthenticationPages signin with valid information should has link "Users"
-     Failure/Error: it { should have_link('Users',    href: users_path) }
-       expected link "Users" to return something
-     # ./spec/requests/authentication_pages_spec.rb:37:in `block (4 levels) in <top (required)>'
+  2) List pages profile page 
+     Failure/Error: before { visit user_path(list) }
+     ActiveRecord::RecordNotFound:
+       Couldn't find User with id=7
+     # ./app/controllers/users_controller.rb:9:in `show'
+     # ./spec/requests/list_pages_spec.rb:10:in `block (3 levels) in <top (required)>'
 
   3) List pages profile page 
      Failure/Error: before { visit user_path(list) }
-     NameError:
-       undefined local variable or method `list' for #<RSpec::Core::ExampleGroup::Nested_6::Nested_1:0x007f6fb4d9c0a8>
+     ActiveRecord::RecordNotFound:
+       Couldn't find User with id=8
+     # ./app/controllers/users_controller.rb:9:in `show'
      # ./spec/requests/list_pages_spec.rb:10:in `block (3 levels) in <top (required)>'
 
-  4) List pages profile page 
-     Failure/Error: before { visit user_path(list) }
-     NameError:
-       undefined local variable or method `list' for #<RSpec::Core::ExampleGroup::Nested_6::Nested_1:0x007f6fb4d04be0>
-     # ./spec/requests/list_pages_spec.rb:10:in `block (3 levels) in <top (required)>'
-
-  5) User pages index delete links as an admin user should be able to delete another user
+  4) User pages index delete links as an admin user should be able to delete another user
      Failure/Error: expect { click_link('delete') }.to change(User, :count).by(-1)
      ActionController::ParameterMissing:
        param not found: user
@@ -202,13 +198,12 @@ Failures:
      # ./spec/requests/user_pages_spec.rb:55:in `block (6 levels) in <top (required)>'
      # ./spec/requests/user_pages_spec.rb:55:in `block (5 levels) in <top (required)>'
 
-Finished in 6.62 seconds
-87 examples, 5 failures, 3 pending
+Finished in 6.56 seconds
+86 examples, 4 failures, 3 pending
 
 Failed examples:
 
 rspec ./spec/requests/authentication_pages_spec.rb:36 # AuthenticationPages signin with valid information should has css "title" with text "Person 1"
-rspec ./spec/requests/authentication_pages_spec.rb:37 # AuthenticationPages signin with valid information should has link "Users"
 rspec ./spec/requests/list_pages_spec.rb:12 # List pages profile page 
 rspec ./spec/requests/list_pages_spec.rb:13 # List pages profile page 
 rspec ./spec/requests/user_pages_spec.rb:54 # User pages index delete links as an admin user should be able to delete another user

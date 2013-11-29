@@ -1,28 +1,28 @@
-<% provide(:title, "Edit user") %> 
+<% provide(:title, "Edit user") %>
 <h1>Update your profile</h1>
 
-<div class="row">
-  <div class="span6 offset3">
-    <%= form_for(@user) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
+<form role = "form">
+  <%= form_for @user do |user_details| %>
+    <%= render 'shared/error_messages', object: user_details.object %>
 
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-
-      <%= f.label :email %>
-      <%= f.text_field :email %>
-
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-
-      <%= f.label :password_confirmation, "Confirm Password" %>
-      <%= f.password_field :password_confirmation %>
-
-      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
-    <% end %>
-
-    <%= gravatar_for (@user) %>
-    <a href="http://gravatar.com/emails">change</a>
+  <div class = "form-group">
+    <%= user_details.label :name%>:
+    <%= user_details.text_field :name, class: "form-control", placeholder: "first last" %>
   </div>
+  <div class = "form-group">
+    <%= user_details.label :email%>:
+    <%= user_details.email_field :email, class: "form-control" %>
+  </div>
+  <div class = "form-group">
+    <%= user_details.label :password%>:
+    <%= user_details.password_field :password, class: "form-control" %>
+  </div>
+  <div class = "form-group">
+    <%= user_details.label :password_confirmation %>
+    <%= user_details.password_field :password_confirmation, class: "form-control" %>
+  </div>
+    <%= user_details.submit "Save changes", class: "btn btn-small btn-primary" %>
+  <% end %>
 </div>
+</form>
 

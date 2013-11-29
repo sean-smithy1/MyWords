@@ -1,19 +1,21 @@
 <aside>
-<div id="LHM" class ="pull-left">
-    <ul class="nav nav-list">
+<div id="nav_left" class ="navbar-left">
+    <ul class="nav nav-tabs nav-stacked">
       <li class="nav-header">Free Lists</li>
       <li><a href="#">Dolch</a></li>
       <li><a href="#">Top 100</a></li>
       <li><a href="#">Red Sight Words</a></li>
       <li><a href="#">Blue Sight Words</a></li>
+
   <% if signed_in? %>
     <li class="nav-header">My Lists</li>
-    <% current_user.my_lists.each do |list| %>
+    <% current_user.my_lists("u").each do |list| %>
       <li><%= link_to list.listname, edit_list_path(list.id) %>
       </li>
     <% end %>
+
     <li class="nav-header">My Schools Lists</li>
-    <% current_user.my_school_lists.each do |list| %>
+    <% current_user.my_lists("s").each do |list| %>
         <li><%= link_to list.listname, edit_list_path(list.id) %>
         </li>
     <% end %>

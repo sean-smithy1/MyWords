@@ -1,9 +1,6 @@
 <% provide(:title, 'New List') %>
 <h1>Add List</h1>
 
-<div class="row">
-  <div class="span6 offset3">
-  	<%= @list.inspect %>
     <%= form_for(@list) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
@@ -12,5 +9,4 @@
 
       <%= f.submit "Create List", class: "btn btn-primary" %>
     <% end %>
-  </div>
-</div>
+

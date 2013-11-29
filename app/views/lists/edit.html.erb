@@ -1,23 +1,27 @@
 <% provide(:title, @list.listname) %>
 
-<%= form_for @list, :url => {action: "update" } do |f| %>
+<form role="form">
+  <%= form_for @list, :url => {action: "update" } do |list_details| %>
 
-  <div><%= f.text_field :listname %>
-  <span class="drop_font"><%= link_to "delete", @list, method: :delete,
- 			data: { confirm: "You sure?" } %></span></h1>
-  </div>
-  <%= render 'shared/error_messages', object: f.object %>
+    <div class="form-group">
+      <%= list_details.label :listname %>:
+      <%= list_details.text_field :listname ,class: "form-control"%>
+    </div>
 
-  </br>
-  <hr>
-    <%= f.fields_for :words do |builder| %>
-      <%= render 'word_fields', f: builder %>
-    <% end %>
+    <%= render 'shared/error_messages', object: list_details.object %>
 
-  <p><%= link_to_add_fields "Add Word", f, :words %></p>
-  <p><%= link_to "Import words", new_word_import_path(list_id: @list.id) %></p>
-
-  <%= f.submit "Update List", class: "btn btn-primary" %>
-
-<% end %>
-
+    <div id="words_panel">
+      <%= list_details.fields_for :words do |list_words| %>
+        <%= render 'word_fields', f: list_words %>
+      <% end %>
+    </div>
+    <div id="menu_items">
+      <%= link_to_add_fields "Add Word", list_details, :words%>
+      <%= link_to "Import Words", new_word_import_path(list_id: @list.id), class: "btn btn-default" %>
+      <%= link_to "Print List", '#', onclick: "printpage()", class: "btn btn-default" %>
+      <%= list_details.submit "Update List", role: "button", class: "btn btn-primary" %>
+      <%= link_to "Delete List", @list, method: :delete,
+      data: { confirm: "You sure?" }, class: "btn btn-danger" %>
+    </div>
+  <% end %>
+</form>

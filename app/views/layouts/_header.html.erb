@@ -1,10 +1,10 @@
 <header class = "row">
 
-  <div id="page_heading">
+  <div id="page_heading" class="page-header">
     <h1>Scholastic Software</h1>
   </div>
 
-    <nav id="nav_bar" class="navbar navbar-default navbar-inverse" role="navigation">
+    <nav id="nav_bar_top" class="navbar navbar-default navbar-inverse" role="navigation">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#dropdown">
           <span class="sr-only">Toggle navigation</span>
@@ -41,6 +41,7 @@
             <% if signed_in? %>
               <li><%= link_to "Profile", current_user %></li>
               <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+              <li><%= link_to "All Users", users_path %>
               <li class="divider"></li>
               <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
             <% else %>

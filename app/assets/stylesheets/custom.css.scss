@@ -1,25 +1,25 @@
 @import "colours";
 
 /* mixins, variables, etc. */
-
 @mixin box_sizing {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* universal */
-
-/* typography */
-
-/* Left Hand Menu (LHM) */
-#LHM {
-
+/* nav-left */
+#nav_left {
+  .nav-header {
+      padding-top: 10px;
+  }
+  a {
+      padding-top: 1px;
+      padding-bottom: 1px;
+  }
 }
 
 
 /* header */
-
 header {
   background-color: $greyDark;
   border-color: #DDDDDD;
@@ -27,17 +27,12 @@ header {
   box-shadow: none;
   margin-left: 0;
   margin-right: 0;
-  #nav_bar {
+  #nav_bar_top {
     margin-bottom: 0px;
   }
 }
 
-
-
-
-
 /* footer */
-
 footer {
   margin-top: 45px;
   padding-top: 5px;
@@ -55,18 +50,12 @@ footer {
 }
 
 /* miscellaneous */
-
 .debug_dump {
   clear: both;
   float: left;
   width: 100%;
   margin-top: 45px;
   @include box_sizing;
-}
-
-.gravatar {
-  float: left;
-  margin-right: 10px;
 }
 
 #error_explanation {
@@ -77,31 +66,21 @@ footer {
   }
 }
 
+#words_panel {
+  input {
+    border: 1px;
+    border-style: dotted;
+    border-color: $greyLight;
+    padding: 5px;
+  }
+}
+
+#menu_items {
+  margin-top: 20px;
+}
+
+
 .field_with_errors {
   @extend .control-group;
   @extend .error;
-}
-
-
-.user_avatars {
-  overflow: auto;
-  margin-top: 10px;
-  .gravatar {
-    margin: 1px 1px;
-  }
-}
-
-/* users index */
-
-.users {
-  list-style: none;
-  margin: 0;
-  li {
-    overflow: auto;
-    padding: 10px 0;
-    border-top: 1px solid $greyLight;
-    &:last-child {
-      border-bottom: 1px solid $greyLight;
-    }
-  }
 }

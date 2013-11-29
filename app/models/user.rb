@@ -14,12 +14,8 @@ class User < ActiveRecord::Base
 
   has_many :lists, :dependent => :destroy
 
-  def my_lists
-    self.lists
-  end
-
-  def my_school_lists
-    self.lists
+  def my_lists(type)
+    self.lists.where(listtype: type)
   end
 
   private

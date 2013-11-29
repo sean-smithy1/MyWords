@@ -1,0 +1,24 @@
+<% provide(:title, @list.listname) %>
+
+<form role = "form">
+  <%= form_for @list, :url => {action: "update" } do |list_details| %>
+    <div class="form-group">
+      <%= user_details.label :listname %>:
+      <%= list_details.text_field :listname, class: "form-control" %>
+    </div>
+
+  <%= render 'shared/error_messages', object: list_details.object %>
+
+  <div class = "form-group">
+    <%= list_details.fields_for :words do |list_words| %>
+      <%= render 'word_fields', f: list_words %>
+    <% end %>
+  </div>
+
+  <%= link_to_add_fields "Add Word", f, :words %>
+  <%= link_to "Import words", new_word_import_path(list_id: @list.id) %>
+
+  <%= f.submit "Update List", class: "btn btn-primary" %>
+
+<% end %>
+</form>
