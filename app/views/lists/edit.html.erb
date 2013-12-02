@@ -1,27 +1,33 @@
 <% provide(:title, @list.listname) %>
 
-<form role="form">
-  <%= form_for @list, :url => {action: "update" } do |list_details| %>
-
-    <div class="form-group">
-      <%= list_details.label :listname %>:
-      <%= list_details.text_field :listname ,class: "form-control"%>
-    </div>
-
+  <%= form_for @list, url: {action: "update" } do |list_details| %>
     <%= render 'shared/error_messages', object: list_details.object %>
 
-    <div id="words_panel">
+    <div id="list_panel" class="form-group">
+      <%= list_details.label :listname %>:
+      <%= list_details.text_field :listname ,class: "form-control" %>
+    </div>
+
+    <div id="words_panel" class="form-group">
       <%= list_details.fields_for :words do |list_words| %>
         <%= render 'word_fields', f: list_words %>
       <% end %>
     </div>
-    <div id="menu_items">
-      <%= link_to_add_fields "Add Word", list_details, :words%>
-      <%= link_to "Import Words", new_word_import_path(list_id: @list.id), class: "btn btn-default" %>
-      <%= link_to "Print List", '#', onclick: "printpage()", class: "btn btn-default" %>
-      <%= list_details.submit "Update List", role: "button", class: "btn btn-primary" %>
-      <%= link_to "Delete List", @list, method: :delete,
+
+    <div id="actions" class="btn-toolbar">
+      <div class="btn-group  btn-group-sm">
+        <div class="btn btn-default">
+          <%= link_to_add_fields "Add Word", list_details, :words %>
+        </div>
+        <%= link_to "Import Words", new_word_import_path(list_id: @list.id), class: "btn btn-default" %>
+        <%= link_to "Print List", '#', onclick: "printpage()", class: "btn btn-default" %>
+      </div>
+
+      <div class="btn-group  btn-group-sm">
+        <%= list_details.submit "Update List", class: "btn btn-primary " %>
+        <%= link_to "Delete List", @list, method: :delete,
       data: { confirm: "You sure?" }, class: "btn btn-danger" %>
+      </div>
+
     </div>
   <% end %>
-</form>

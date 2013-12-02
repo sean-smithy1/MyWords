@@ -54,6 +54,5 @@ private
   def max_words
     self.errors[:base]<<"100 maximun words per list" if words.length>=100
   end
-
 end
 

@@ -7,20 +7,13 @@ class ListsController < ApplicationController
     @list = List.new
   end
 
-  def show
-    @list = List.find(params[:id])
-  end
-
   def create
     @list=current_user.lists.build(list_params)
-    if @list.words_are_unique?
       if @list.save
-        redirect_to @list, notice: "Successfully created a list."
+        redirect_to edit_list_path(@list), notice: "Successfully created your list."
       else
-        redirect_to @list, notice: "There was an error saving your list"
+        redirect_to new_list_path, notice: "There was an error saving your list"
       end
-      redirect_to @list, notice: "Your list has duplicate entries"
-    end
   end
 
   def destroy
@@ -35,9 +28,11 @@ class ListsController < ApplicationController
 
   def update
     @list.attributes = list_params
+#    logger.debug "The list details are: #{@list}"
     if @list.create_or_associate
-      redirect_to @list, notice: "List Update"
+      redirect_to edit_list_path(@list), notice: "List Update"
     else
+      flash[:notice] = 'There was an issue updating your'
       render :edit
     end
   end
