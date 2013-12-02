@@ -25,10 +25,9 @@
     </div>
 
     <div class="col-md-10">
-      <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
-        <%= yield %>
+      <%= render partial: "shared/flash_messages", flash: flash %>
+
+      <%= yield %>
     </div>
 
     <div class="row">

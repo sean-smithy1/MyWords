@@ -1,7 +1,6 @@
 <% provide(:title, @list.listname) %>
 
   <%= form_for @list, url: {action: "update" } do |list_details| %>
-    <%= render 'shared/error_messages', object: list_details.object %>
 
     <div id="list_panel" class="form-group">
       <%= list_details.label :listname %>:

@@ -6,7 +6,8 @@ function remove_fields(link) {
 function add_fields(link, association, content) {
   var new_id = new Date().getTime();
   var regexp = new RegExp("new_" + association, "g")
-  $(link).parent().before(content.replace(regexp, new_id));
+  $("#words_panel").append(content.replace(regexp, new_id));
+  $("#" + regexp).focus();
 }
 
 function printpage() {

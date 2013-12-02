@@ -10,16 +10,15 @@ class ListsController < ApplicationController
   def create
     @list=current_user.lists.build(list_params)
       if @list.save
-        redirect_to edit_list_path(@list), notice: "Successfully created your list."
+        redirect_to edit_list_path(@list), flash: { success: "Successfully created your list."}
       else
-        redirect_to new_list_path, notice: "There was an error saving your list"
+        redirect_to new_list_path, flash: { error: "There was an error saving your list" }
       end
   end
 
   def destroy
-    logger.error " The List to destroy is: #{@list.to_s}"
     @list.destroy
-    redirect_to root_url, notice: "List removed."
+    redirect_to root_url, flash: { success: "The list #{@list.to_s} has been deleted" }
   end
 
   def edit
@@ -28,11 +27,10 @@ class ListsController < ApplicationController
 
   def update
     @list.attributes = list_params
-#    logger.debug "The list details are: #{@list}"
     if @list.create_or_associate
-      redirect_to edit_list_path(@list), notice: "List Update"
+      redirect_to edit_list_path(@list), flash: { success: "List updated" }
     else
-      flash[:notice] = 'There was an issue updating your'
+      flash[:error] = 'There was an issue updating your'
       render :edit
     end
   end
