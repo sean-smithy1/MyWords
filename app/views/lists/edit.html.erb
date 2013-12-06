@@ -2,6 +2,8 @@
 
   <%= form_for @list, url: {action: "update" } do |list_details| %>
 
+    <%= render 'shared/validation_errors', object: @list %>
+
     <div id="list_panel" class="form-group">
       <%= list_details.label :listname %>:
       <%= list_details.text_field :listname ,class: "form-control" %>

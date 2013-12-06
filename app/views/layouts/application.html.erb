@@ -13,30 +13,29 @@
   <%= render 'layouts/shim' %>
   <div class="container">
 
-  <div class = "row">
+  <div id="heading" class = "row">
     <div class="col-md-12">
       <%= render 'layouts/header' %>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-2">
+    <div id="nav_left" class="col-md-2">
       <%= render 'layouts/lhmenu' %>
     </div>
 
-    <div class="col-md-10">
+    <div id="main_panel" class="col-md-10">
       <%= render partial: "shared/flash_messages", flash: flash %>
-
       <%= yield %>
     </div>
 
     <div class="row">
-      <div class = "col-md-12">
+      <div id="footer" class = "col-md-12">
       <%= render 'layouts/footer' %>
       <%= debug(params) if Rails.env.development? %>
       </div>
     </div>
-
   </div>
+
 </body>
 </html>

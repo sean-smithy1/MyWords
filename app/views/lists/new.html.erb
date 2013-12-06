@@ -1,11 +1,15 @@
 <% provide(:title, 'New List') %>
 <h1>Add List</h1>
 
-    <%= form_for(@list) do |f| %>
+    <%= form_for(@list) do |list| %>
+    <%= render 'shared/validation_errors', object: @list %>
 
-      <%= f.label :listname, 'List Name' %>
-      <%= f.text_field :listname %>
+      <%= list.label :listname, 'List Name' %>
+      <%= list.text_field :listname %>
 
-      <%= f.submit "Create List", class: "btn btn-primary" %>
+      <div class="btn-group-sm">
+        <%= list.submit "Create List", class: "btn btn-primary" %>
+      </div>
+
     <% end %>
 

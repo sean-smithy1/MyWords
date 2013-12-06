@@ -23,14 +23,25 @@ class List < ActiveRecord::Base
   def create_or_associate
   # For each word submitted
     self.words.each do |the_list|
-      if the_list.word_changed?
-        if Word.exists?(word: the_list.word)
-          # edited word already in DB
+      if the_list.word_changed? #(New and Changed)
+
+       if Word.exists?(word: the_list.word)
+          # edited or new word already in DB
           assoc_rec=self.lists_words.new
           assoc_rec.word_id=Word.where(word: the_list.word).pluck(:id)[0]
-          assoc_rec.save
+          assoc_rec.save #Use Association validation
+
+        elsif the_list.exists?
+          #edited word not in the db
+
+          # Dosn't exist but is an edit of an existing one
+          # So do I check for anyone else using it and modify the word
+          # or just creat a new word, remove old assoc, and add new one leaving an orphen?
+
         else
-          # Edited word not in DB
+
+
+          # New word (Doesn't have an ID)
           self.words<<the_list
         end
       end

@@ -26,11 +26,13 @@ class ListsController < ApplicationController
   end
 
   def update
-    @list.attributes = list_params
-    if @list.create_or_associate
-      redirect_to edit_list_path(@list), flash: { success: "List updated" }
+    if @list.update_attributes(listname: list_params[:listname])
+      @list.attributes = list_params
+      if @list.create_or_associate
+        redirect_to edit_list_path(@list), flash: { success: "List updated" }
+        return
+      end
     else
-      flash[:error] = 'There was an issue updating your'
       render :edit
     end
   end

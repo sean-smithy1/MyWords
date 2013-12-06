@@ -1,5 +1,5 @@
 --colour
 --drb
 --format progress
---format documentation --color -o "documentation/txt/rspec_doc.txt"
---format html -o "documentation/web/rspec_doc.html"
+--format documentation --color -o "doc/txt/rspec_doc.txt"
+--format html -o "doc/web/rspec_doc.html"
