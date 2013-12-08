@@ -41,7 +41,7 @@ class ListsController < ApplicationController
 
   def list_params
     params.require(:list).permit(:id, :listname, :listtype,
-     :words_attributes => [:id, :word])
+     words_attributes:  [ :id, :word ])
   end
 
   def list_owner

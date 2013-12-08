@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.1'
+gem 'rails', '4.0.2'
 gem 'bcrypt-ruby', '~> 3.1.2' #Secure Passwords
 gem 'bootstrap-will_paginate', '0.0.10' # Paginate records
 gem 'will_paginate', '3.0.5'

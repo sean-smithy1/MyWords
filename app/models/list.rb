@@ -2,8 +2,8 @@ class List < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :lists_words, -> {order 'lists_words.created_at'}
-  has_many :words, through: :lists_words, dependent: :delete_all
+  has_many :lists_words
+  has_many :words, through: :lists_words, dependent: :delete_all, inverse_of: :lists, order: 'word ASC'
 
   accepts_nested_attributes_for :words, allow_destroy: :true
 
@@ -25,24 +25,25 @@ class List < ActiveRecord::Base
     self.words.each do |the_list|
       if the_list.word_changed? #(New and Changed)
 
-       if Word.exists?(word: the_list.word)
-          # edited or new word already in DB
-          assoc_rec=self.lists_words.new
-          assoc_rec.word_id=Word.where(word: the_list.word).pluck(:id)[0]
-          assoc_rec.save #Use Association validation
-
-        elsif the_list.exists?
-          #edited word not in the db
-
-          # Dosn't exist but is an edit of an existing one
-          # So do I check for anyone else using it and modify the word
-          # or just creat a new word, remove old assoc, and add new one leaving an orphen?
-
+        if the_list.id.nil? #new list word
+          if Word.exists?(word: the_list.word)
+            self.words << Word.where(word: the_list.word)
+          else
+            #new list word not in DB
+            self.words << the_list
+          end
         else
-
-
-          # New word (Doesn't have an ID)
-          self.words<<the_list
+          # a changed list word
+          if Word.exists?(word: the_list.word)
+            # changed word already in DB
+            self.words << Word.where(word: the_list.word)
+            self.words.find(the_list.id).delete
+          else
+            #changed word not in DB
+            new_word=Word.create(word: the_list.word)
+            self.words << new_word
+            self.words.find(the_list.id).delete
+          end
         end
       end
     end
