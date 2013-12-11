@@ -15,6 +15,7 @@ class List < ActiveRecord::Base
    validate :max_words
 
   #Model Associations
+  validates_associated :words
 
   def to_s
     self.listname
@@ -47,19 +48,6 @@ class List < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def words_are_unique?
-# Check for unique words submitted from the form.
-# Capture double ups for later highlighting on form-return
-    word_counts= Hash.new(0)
-    nested_words=self.words.map{ |w| w.word }
-    nested_words.each{ |val| word_counts[val]+=1 }
-    word_counts.reject!{ |val,count| count==1 }.keys
-
-# This section to add errors to individual words
-# Future Activity
-    true if word_counts.length==0
   end
 
 private

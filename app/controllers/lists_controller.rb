@@ -28,11 +28,12 @@ class ListsController < ApplicationController
   def update
     if @list.update_attributes(listname: list_params[:listname])
       @list.attributes = list_params
-      if @list.create_or_associate
-        redirect_to edit_list_path(@list), flash: { success: "List updated" }
-        return
+      if words_are_unique?
+        if @list.create_or_associate
+          redirect_to edit_list_path(@list), flash: { success: "List updated" }
+          return
+        end
       end
-    else
       render :edit
     end
   end
@@ -49,4 +50,20 @@ class ListsController < ApplicationController
     redirect_to root_url if @list.nil?
   end
 
+  def words_are_unique?
+    # Unique words submitted, no double up's in current list
+    # Catch before getting to Model.
+    word_counts=Hash.new(0)
+    nested_words=params[:list][:words_attributes].map { |k,v| v[:word] }
+    nested_words.each{ |val| word_counts[val]+=1 }
+    word_counts.reject!{ |val,count| count==1 }.keys
+    puts "**Debug -- Words: #{word_counts}"
+
+    if word_counts.length==0
+      true
+    else
+      @list.errors[:base] << "You have duplicate words in this list"
+      false
+    end
+  end
 end
