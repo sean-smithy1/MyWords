@@ -13,6 +13,7 @@ MAXWORDS=5
     false
   end
 
+  # this needs to be create or assocate
   def save
     if imported_words.map(&:valid?).all?
       imported_words.each(&:save!)
@@ -37,7 +38,7 @@ MAXWORDS=5
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).map do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      @list.words.create(row.to_hash)
+     @list.create_or_associate(row.to_hash)
     end
   end
 

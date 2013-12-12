@@ -1,7 +1,7 @@
 class ListsController < ApplicationController
 
-  before_filter :signed_in_user, only: [:show, :create, :destroy]
-  before_filter :list_owner,   only: [:destroy, :update]
+  before_filter :signed_in_user, only: [:show, :create, :destroy, :clear_words]
+  before_filter :list_owner,   only: [:destroy, :update, :clear_words]
 
   def new
     @list = List.new
@@ -12,7 +12,7 @@ class ListsController < ApplicationController
       if @list.save
         redirect_to edit_list_path(@list), flash: { success: "Successfully created your list."}
       else
-        redirect_to new_list_path, flash: { error: "There was an error saving your list" }
+        render :new
       end
   end
 
@@ -34,6 +34,15 @@ class ListsController < ApplicationController
           return
         end
       end
+      render :edit
+    end
+  end
+
+  def clear_words
+    @list=current_user.lists.find(params[:id])
+    if @list.words.clear
+      redirect_to edit_list_path(@list), flash: { success: "All word removed" }
+    else
       render :edit
     end
   end

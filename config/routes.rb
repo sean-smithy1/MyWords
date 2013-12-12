@@ -3,6 +3,9 @@ MyWords::Application.routes.draw do
   resources :users
 
   resources :lists do
+    member do
+      patch 'clear_words'
+    end
     resources :words
   end
 
