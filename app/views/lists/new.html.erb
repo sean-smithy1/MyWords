@@ -2,10 +2,13 @@
 <h1>Add List</h1>
 
     <%= form_for(@list) do |list| %>
-    <%= render 'shared/validation_errors', object: @list %>
+    <%= render partial: 'shared/validation', object: list.object %>
 
       <%= list.label :listname, 'List Name' %>
       <%= list.text_field :listname %>
+
+      <%= list.label :listtype, 'List Type' %>
+      <%= list.select(:listtype, [['Personel','u'], ['School', 's'], ['Free','f']]) %>
 
       <div class="btn-group-sm">
         <%= list.submit "Create List", class: "btn btn-primary" %>

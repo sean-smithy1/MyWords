@@ -15,16 +15,15 @@ MAXWORDS=5
 
   # this needs to be create or assocate
   def save
-    if imported_words.map(&:valid?).all?
-      imported_words.each(&:save!)
-      true
+    if @list.save
+      return true
     else
       imported_words.each_with_index do |word, index|
         word.errors.full_messages.each do |message|
           errors.add :base, "Row #{index+2}: #{message}"
         end
       end
-      false
+      return false
     end
   end
 
@@ -33,12 +32,14 @@ MAXWORDS=5
   end
 
   def load_imported_words
-    @list = List.find(@list_id)
+    @list=List.find(list_id)
     spreadsheet = open_spreadsheet
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).map do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-     @list.create_or_associate(row.to_hash)
+     puts "** row=#{row}"
+     word = Word.find_or_create_by(row.to_hash)
+     @list.words << word
     end
   end
 

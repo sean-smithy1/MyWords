@@ -2,7 +2,7 @@
 
   <%= form_for @list, url: {action: "update" } do |list_details| %>
 
-    <%= render 'shared/validation_errors', object: @list %>
+    <%= render partial: 'shared/validation', object: list_details.object %>
 
     <div id="list_panel" class="form-group">
       <%= list_details.label :listname %>:

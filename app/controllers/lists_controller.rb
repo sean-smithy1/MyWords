@@ -10,15 +10,15 @@ class ListsController < ApplicationController
   def create
     @list=current_user.lists.build(list_params)
       if @list.save
-        redirect_to edit_list_path(@list), flash: { success: "Successfully created your list."}
+        redirect_to edit_list_path(@list), flash: { notice: "Successfully created your list."}
       else
-        render :new
+        render :edit
       end
   end
 
   def destroy
     @list.destroy
-    redirect_to root_url, flash: { success: "The list #{@list.to_s} has been deleted" }
+    redirect_to root_url, flash: { notice: "The list #{@list.to_s} has been deleted" }
   end
 
   def edit
@@ -26,22 +26,25 @@ class ListsController < ApplicationController
   end
 
   def update
-    if @list.update_attributes(listname: list_params[:listname])
-      @list.attributes = list_params
-      if words_are_unique?
-        if @list.create_or_associate
-          redirect_to edit_list_path(@list), flash: { success: "List updated" }
-          return
-        end
+    if words_are_unique?
+      words = params[:list][:words_attributes]
+      @list.words = [] if @list.persisted?
+      words.each do |k,w|
+        word = Word.find_or_create_by(word: w[:word])
+        @list.words << word
       end
-      render :edit
+      if @list.save
+        redirect_to edit_list_path(@list), flash: { notice: "Successfully updated your list."}
+        return
+      end
     end
+    render :edit
   end
 
   def clear_words
     @list=current_user.lists.find(params[:id])
     if @list.words.clear
-      redirect_to edit_list_path(@list), flash: { success: "All word removed" }
+      redirect_to edit_list_path(@list), flash: { notice: "All word removed" }
     else
       render :edit
     end
@@ -69,10 +72,10 @@ class ListsController < ApplicationController
     puts "**Debug -- Words: #{word_counts}"
 
     if word_counts.length==0
-      true
+      return true
     else
       @list.errors[:base] << "You have duplicate words in this list"
-      false
+      return false
     end
   end
 end

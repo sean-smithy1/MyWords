@@ -3,7 +3,7 @@
 
 <form role = "form">
   <%= form_for @user do |user_details| %>
-    <%= render 'shared/error_messages', object: user_details.object %>
+    <%= render partial: 'shared/validation', object: user_details.object %>
 
   <div class = "form-group">
     <%= user_details.label :name%>:
