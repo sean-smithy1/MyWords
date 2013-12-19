@@ -13,7 +13,6 @@ MAXWORDS=5
     false
   end
 
-  # this needs to be create or assocate
   def save
     if @list.save
       return true

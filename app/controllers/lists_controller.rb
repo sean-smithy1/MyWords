@@ -22,9 +22,10 @@ class ListsController < ApplicationController
   end
 
   def edit
-    @list = current_user.lists.find(params[:id])
+    @list = Lists.find(params[:id])
   end
 
+  # TODO: Refractor
   def update
     if words_are_unique?
       words = params[:list][:words_attributes]
@@ -41,10 +42,18 @@ class ListsController < ApplicationController
     render :edit
   end
 
+  def import_list
+
+  end
+
+  def export_list
+
+  end
+
   def clear_words
-    @list=current_user.lists.find(params[:id])
+    @list=Lists.find(params[:id])
     if @list.words.clear
-      redirect_to edit_list_path(@list), flash: { notice: "All word removed" }
+      redirect_to edit_list_path(@list), flash: { notice: "All words removed" }
     else
       render :edit
     end
