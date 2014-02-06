@@ -6,7 +6,9 @@ gem 'bootstrap-will_paginate', '0.0.10' # Paginate records
 gem 'will_paginate', '3.0.5'
 gem 'roo', '~> 1.12.2' #CSV importing
 gem 'mysql2', '0.3.14'
+
 gem 'jquery-rails', '< 3.0.0'
+gem 'bootstrap-sass', '~> 3.0.3.0'
 
 ### GROUPS ###
 group :development do
@@ -17,7 +19,6 @@ end
 group :assets do
   #CSS
   gem 'sass-rails', '~> 4.0.0'
-  gem 'bootstrap-sass', '~> 3.0.3.0'
 
   # JavaScript
   gem 'coffee-rails', '~> 4.0.0'
