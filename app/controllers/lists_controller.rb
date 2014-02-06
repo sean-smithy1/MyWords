@@ -22,7 +22,7 @@ class ListsController < ApplicationController
   end
 
   def edit
-    @list = Lists.find(params[:id])
+    @list = List.find(params[:id])
   end
 
   # TODO: Refractor

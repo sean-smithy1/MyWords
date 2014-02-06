@@ -5,10 +5,12 @@ gem 'bcrypt-ruby', '~> 3.1.2' #Secure Passwords
 gem 'bootstrap-will_paginate', '0.0.10' # Paginate records
 gem 'will_paginate', '3.0.5'
 gem 'roo', '~> 1.12.2' #CSV importing
+gem 'mysql2', '0.3.14'
 
 ### GROUPS ###
 group :development do
-  gem 'mysql2', '0.3.14'
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
 end
 
 group :assets do
@@ -32,7 +34,6 @@ group :test do
 end
 
 group :production do
-  gem 'mysql2', '0.3.14'
 end
 
 group :development, :test do

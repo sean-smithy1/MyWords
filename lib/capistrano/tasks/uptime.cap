@@ -1,0 +1,6 @@
+desc "Report uptimes"
+task :uptime do
+  on roles(:all) do | host |
+    info "host #{host} \t#{capture(:uptime)}"
+  end
+end
