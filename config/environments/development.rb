@@ -25,7 +25,8 @@ MyWords::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.log_level = :debug
+  # log_level - default is debug in dev. env.
+  # config.log_level = Logger::DEBUG
 
   config.eager_load = false
 
