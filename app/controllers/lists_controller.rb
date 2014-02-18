@@ -1,7 +1,7 @@
 class ListsController < ApplicationController
 
-  before_filter :signed_in_user, only: [:show, :create, :destroy, :clear_words]
-  before_filter :list_owner,   only: [:destroy, :update, :clear_words]
+  before_filter :signed_in_user, only: [:show, :create, :destroy, :clear_words, :import]
+  before_filter :list_owner,   only: [:destroy, :update, :clear_words, :import]
 
   def new
     @list = List.new
@@ -47,14 +47,6 @@ class ListsController < ApplicationController
     render :edit
   end
 
-  def import_list
-
-  end
-
-  def export_list
-
-  end
-
   def clear_words
     @list=Lists.find(params[:id])
     if @list.words.clear
@@ -63,6 +55,11 @@ class ListsController < ApplicationController
       render :edit
     end
   end
+
+  def import
+    @list =List.find(params[:id])
+  end
+
 
  private
 

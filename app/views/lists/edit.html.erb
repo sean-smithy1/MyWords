@@ -20,7 +20,7 @@
         <div class="btn btn-default">
           <%= link_to_add_fields "Add Word", list_details, :words %>
         </div>
-        <%= link_to "Import Words", new_word_import_path(list_id: @list.id), class: "btn btn-default" %>
+        <%= link_to "Import Words", import_words_list_path(list_id: @list.id), class: "btn btn-default" %>
         <%= link_to "Print List", '#', onclick: "printpage()", class: "btn btn-default" %>
       </div>
 

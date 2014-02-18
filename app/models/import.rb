@@ -1,7 +1,5 @@
-class WordImport
+class Import
 include ActiveModel::Model
-
-MAXWORDS=5
 
   attr_accessor :file, :list_id
 

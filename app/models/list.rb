@@ -1,5 +1,7 @@
 class List < ActiveRecord::Base
 
+  MAXWORDS=50
+
   belongs_to :user
 
   has_many :lists_words
@@ -17,8 +19,21 @@ class List < ActiveRecord::Base
   #Model Associations
   validates_associated :words
 
+
+  def count_words
+    self.words.count
+  end
+
+  def words_remaining
+    MAXWORDS-count_words
+  end
+
   def to_s
     self.listname
+  end
+
+  def self.maxwords
+    50
   end
 
 private
