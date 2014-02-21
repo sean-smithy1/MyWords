@@ -1,10 +1,16 @@
 class Import
 include ActiveModel::Model
+  extend ActiveModel::Callbacks
+  define_model_callbacks :initialize
 
-  attr_accessor :file, :list_id
+  after_initialize :get_list_name, :if => Proc.new { !list_id.nil? }
+
+  attr_accessor :file, :list_id, :list_name
 
   def initialize(attributes = {})
-    attributes.each { |name, value| send("#{name}=", value) }
+    run_callbacks :initialize do
+      attributes.each { |name, value| send("#{name}=", value) }
+    end
   end
 
   def persisted?
@@ -29,7 +35,6 @@ include ActiveModel::Model
   end
 
   def load_imported_words
-    @list=List.find(list_id)
     spreadsheet = open_spreadsheet
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).map do |i|
@@ -51,9 +56,15 @@ include ActiveModel::Model
     end
   end
 
+private
+
   def max_num_words?(sp)
     numwords=sp.last_row-1
     true if numwords >= MAXWORDS
+  end
+
+  def get_list_name
+    list_name=List.find(list_id).listname
   end
 
 end

@@ -1,4 +1,4 @@
-<h1>Import words into <%= @list.listname %></h1>
+<h1>Import words into <%= @word_import.list_name %></h1>
 
 <p>A CSV, Excel or Open Document Speadsheet can be used to import words into your list. You are allowed to import up to <%= List.maxwords %> words per list. You have <%= @list.words_remaining %> remaining in this list. Words beyond this limit will be not be imported</p>
 
@@ -31,6 +31,10 @@
 
   <div class="field">
     <%= f.file_field :file %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :list_id %>
   </div>
 
   <div class="buttons">
