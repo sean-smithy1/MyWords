@@ -1,16 +1,10 @@
 class Import
 include ActiveModel::Model
-  extend ActiveModel::Callbacks
-  define_model_callbacks :initialize
 
-  after_initialize :get_list_name, :if => Proc.new { !list_id.nil? }
-
-  attr_accessor :file, :list_id, :list_name
+  attr_accessor :file, :list_id, :user_id
 
   def initialize(attributes = {})
-    run_callbacks :initialize do
       attributes.each { |name, value| send("#{name}=", value) }
-    end
   end
 
   def persisted?
@@ -18,31 +12,33 @@ include ActiveModel::Model
   end
 
   def save
-    if @list.save
-      return true
+    if load_imported_lists.map(&:valid?).all?
+      load_imported_lists.each(&:save!)
+      true
     else
-      imported_words.each_with_index do |word, index|
+       load_imported_lists.each_with_index do |word, index|
         word.errors.full_messages.each do |message|
           errors.add :base, "Row #{index+2}: #{message}"
         end
       end
-      return false
+      false
     end
   end
 
-  def imported_words
-    @imported_words ||= load_imported_words
-  end
-
-  def load_imported_words
+  def load_imported_lists
     spreadsheet = open_spreadsheet
-    header = spreadsheet.row(1)
-    (2..spreadsheet.last_row).map do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-     puts "** row=#{row}"
-     word = Word.find_or_create_by(row.to_hash)
-     @list.words << word
+    list=List.find_by_id(list_id) || List.new(user_id: user_id)
+    list.listname=spreadsheet.cell(1,1)
+    (2..spreadsheet.last_row).each do |i|
+      import_word=spreadsheet.cell(i,1)
+      word_to_add = Word.find_or_create_by_word(import_word)
+
+      unless list.word_ids.include?(word_to_add.id)
+        list.words << word_to_add
+      end
+
     end
+      list #return the list to save
   end
 
   def open_spreadsheet
@@ -57,15 +53,6 @@ include ActiveModel::Model
   end
 
 private
-
-  def max_num_words?(sp)
-    numwords=sp.last_row-1
-    true if numwords >= MAXWORDS
-  end
-
-  def get_list_name
-    list_name=List.find(list_id).listname
-  end
 
 end
 

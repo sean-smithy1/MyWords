@@ -27,6 +27,7 @@ class ListsController < ApplicationController
 
   # TODO: Refractor
   def update
+
     # Update Listname if change
     unless @list.listname == params[:list][:listname]
       @list.update_attribute(:listname, params[:list][:listname])
@@ -48,7 +49,7 @@ class ListsController < ApplicationController
   end
 
   def clear_words
-    @list=Lists.find(params[:id])
+    @list=List.find(params[:id])
     if @list.words.clear
       redirect_to edit_list_path(@list), flash: { notice: "All words removed" }
     else
