@@ -27,7 +27,6 @@ class ListsController < ApplicationController
 
   # TODO: Refractor
   def update
-
     # Update Listname if change
     unless @list.listname == params[:list][:listname]
       @list.update_attribute(:listname, params[:list][:listname])

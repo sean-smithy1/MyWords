@@ -1,7 +1,7 @@
 class Import
 include ActiveModel::Model
 
-  attr_accessor :file, :list_id, :user_id
+  attr_accessor :file, :list_id
 
   def initialize(attributes = {})
       attributes.each { |name, value| send("#{name}=", value) }
@@ -12,8 +12,8 @@ include ActiveModel::Model
   end
 
   def save
-    if load_imported_lists.map(&:valid?).all?
-      load_imported_lists.each(&:save!)
+    if load_imported_lists(&:valid?)
+      load_imported_lists(&:save!)
       true
     else
        load_imported_lists.each_with_index do |word, index|
@@ -27,18 +27,21 @@ include ActiveModel::Model
 
   def load_imported_lists
     spreadsheet = open_spreadsheet
-    list=List.find_by_id(list_id) || List.new(user_id: user_id)
+    list=List.find_by_id(list_id) || List.new
     list.listname=spreadsheet.cell(1,1)
-    (2..spreadsheet.last_row).each do |i|
-      import_word=spreadsheet.cell(i,1)
-      word_to_add = Word.find_or_create_by_word(import_word)
+    if list.words_remaining >= spreadsheet.last_row
 
-      unless list.word_ids.include?(word_to_add.id)
-        list.words << word_to_add
+      import_attributes.merge!(listname: spreadsheet.cell(1,1), words_attributes: {})
+
+      (2..spreadsheet.last_row).each do |i|
+          word=Word.find_or_create_by(word: spreadsheet.cell(i,1))
+          import_attributes[:words_attributes].merge!(word.id.to_s => {word: word.word})
       end
 
-    end
+      list.attributes.merge!(import_attributes)
       list #return the list to save
+    end
+    Rails.debug "*** Caught there wasn't enough spots"
   end
 
   def open_spreadsheet
@@ -51,8 +54,5 @@ include ActiveModel::Model
       raise "Unknown file type: #{file.original_filename}"
     end
   end
-
-private
-
 end
 
