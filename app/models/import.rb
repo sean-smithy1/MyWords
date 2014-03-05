@@ -41,7 +41,7 @@ include ActiveModel::Model
       list.attributes.merge!(import_attributes)
       list #return the list to save
     end
-    Rails.debug "*** Caught there wasn't enough spots"
+    errors.add :base "Row #{index+2}: #{message}"
   end
 
   def open_spreadsheet
