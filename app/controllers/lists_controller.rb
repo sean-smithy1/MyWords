@@ -25,6 +25,10 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
   end
 
+  def show
+    @list=List.find(params[:id])
+  end
+
   # TODO: Refractor
   def update
     # Update Listname if change
@@ -55,11 +59,6 @@ class ListsController < ApplicationController
       render :edit
     end
   end
-
-  def import
-    @list =List.find(params[:id])
-  end
-
 
  private
 

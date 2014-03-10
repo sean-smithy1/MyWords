@@ -1,10 +1,7 @@
-
-<%= render partial: 'shared/validation', object: word_import.object %>
-
 <h1>Import words into <%= @list.listname %></h1>
 
 <p>
-  A CSV, Excel or Open Document Speadsheet can be used to import words into your list. You are allowed to import up to <%= List.maxwords %> words per list. You have <%= @list.words_remaining %> remaining in this list. Words beyond this limit will be truncated
+  A CSV, Excel or Open Document Speadsheet can be used to import words into your list. You are allowed to import up to <%= List.maxwords %> words per list. You have <%= @list.words_remaining %> remaining in this list.
 </p>
 
 <ul>
@@ -20,13 +17,13 @@
       </li>
 </ul>
 
-<%= form_for @word_import do |f| %>
-  <% if @word_import.errors.any? %>
+<%= form_for @import_words  do |f| %>
+  <% if @import_words.errors.any? %>
 
     <div id="error_explanation">
-      <h2><%= pluralize(@word_import.errors.count, "error") %> prohibited this import from completing:</h2>
+      <h2><%= pluralize(@import_words.errors.count, "error") %> prohibited this import from completing:</h2>
       <ul>
-        <% @word_import.errors.full_messages.each do |msg| %>
+        <% @import_words.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>
@@ -38,12 +35,10 @@
     <%= f.file_field :file %>
   </div>
 
-  <div class="field">
-    <%= f.hidden_field :list_id %>
-  </div>
+  <%= f.hidden_field :list_id, value: @list.id  %>
 
   <div class="buttons">
-    <%= f.submit "Import" %>
+    <%= f.submit "Import", method: :patch %>
   </div>
 
 <% end %>

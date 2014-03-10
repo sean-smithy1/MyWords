@@ -1,31 +1,36 @@
 class ImportsController < ApplicationController
 
 before_filter :signed_in_user, only: [:new, :create, :import_words]
-before_filter :list_owner, only: [:import_words]
+before_filter :list_owner, only: [:new_import_words]
+
+# -- Import into existing List
 
   def import_words
-    @word_import=Import.new(list_id: params[:id])
-    @list=List.find_by_id(params[:id])
+    @list=List.find(params[:id])
+    @import_words=Import.new
   end
 
+# -- Create New Lists
+
   def new
-    @lists_import = Import.new
+    @import_lists = Import.new
   end
 
   def create
-    @lists_import = Import.new(list_import_params)
-    if @lists_import.save
-      redirect_to root_url, notice: "Imported words successfully."
+    @import_lists = Import.new(import_list_params)
+    if @import_lists.save
+      @list=List.find(@import_lists.list_id)
+      redirect_to edit_list_path(@list), flash: { notice: "Imported list successfully."}
     else
-      render :new
-    end
+      render :import_words
+     end
   end
-
 
 private
 
-  def list_import_params
-    params.require(:import).permit(:file, :list_id, :user_id)
+  def import_list_params
+    params.require(:import).permit(:file, :list_id
+      )
   end
 
   def list_owner

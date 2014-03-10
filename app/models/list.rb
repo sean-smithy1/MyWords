@@ -34,7 +34,7 @@ class List < ActiveRecord::Base
 
 private
   def max_words
-    self.errors[:base]<<"100 maximin words per list" if words.length>100
+    self.errors[:base]<< "maximum #{MAXWORDS} words per list" if words.length > MAXWORDS
   end
 end
 
