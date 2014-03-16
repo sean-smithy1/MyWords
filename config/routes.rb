@@ -5,7 +5,6 @@ MyWords::Application.routes.draw do
   resources :lists do
     member do
       patch 'clear_words'
-      get 'import_words', controller: 'imports'
     end
     resources :words
   end

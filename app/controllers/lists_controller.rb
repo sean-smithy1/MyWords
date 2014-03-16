@@ -1,4 +1,5 @@
 class ListsController < ApplicationController
+  include ListsHelper
 
   before_filter :signed_in_user, only: [:show, :create, :destroy, :clear_words, :import]
   before_filter :list_owner,   only: [:destroy, :update, :clear_words, :import]
@@ -67,11 +68,6 @@ class ListsController < ApplicationController
      words_attributes:  [ :id, :word ])
   end
 
-  def list_owner
-    @list = current_user.lists.find_by_id(params[:id])
-    redirect_to root_url if @list.nil?
-  end
-
   def words_are_unique?
     # Unique words submitted, no double up's in current list
     # Catch before getting to Model.
@@ -88,4 +84,12 @@ class ListsController < ApplicationController
       return false
     end
   end
+
+  def list_owner
+    unless list_owner?(params[:list_id])
+      flash[:error] = "You must own the list you are modifing"
+      redirect_to root_url
+    end
+  end
+
 end

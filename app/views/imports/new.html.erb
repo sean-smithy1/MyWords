@@ -1,27 +1,29 @@
-<h1>Import Your Lists</h1>
+<h1>Import words <%= @list.listname if @list.present?  %></h1>
 
-<p>A CSV, Excel or Open Document Speadsheet can be used to import words into your list. You are allowed to import up to <%= List.maxwords %> words per list. The spreadsheet format is shown below.</p>
+<p>
+  A CSV, Excel or Open Document Speadsheet can be used to import words into your list. You are allowed to import up to <%= List.maxwords %> words per list. You have <%= @list.words_remaining if @list.present? %> remaining in this list.
+</p>
 
 <ul>
        <li>
         <strong>Word Format</strong> -
-        upto <%= List.maxwords %> characters with no spaces
+        upto  characters with no spaces.
       </li>
       <li>
-        <strong>Duplicates</strong> - There should be no duplicate words in your list
+        <strong>Duplicates</strong> - There should be no duplicate words in your list.
       </li>
       <li>
         <strong>Capitalisation will be maintained</strong> - There is no easy way for us to determine capitalisation, you will need to do this.
       </li>
 </ul>
 
-<%= form_for @lists_import do |f| %>
-  <% if @lists_import.errors.any? %>
+<%= form_for @import_lists  do |f| %>
+  <% if @import_lists.errors.any? %>
 
     <div id="error_explanation">
-      <h2><%= pluralize(@lists_import.errors.count, "error") %> prohibited this import from completing:</h2>
+      <h2><%= pluralize(@import_lists.errors.count, "error") %> prohibited this import from completing:</h2>
       <ul>
-        <% @lists_import.errors.full_messages.each do |msg| %>
+        <% @import_lists.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>
@@ -32,6 +34,10 @@
   <div class="field">
     <%= f.file_field :file %>
   </div>
+
+  <% if @list.present? %>
+    <%= f.hidden_field :list_id, value: @list.id  %>
+  <% end %>
 
   <div class="buttons">
     <%= f.submit "Import" %>
