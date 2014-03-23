@@ -1,8 +1,6 @@
-<% provide(:title, "Edit user") %>
-<h1>Update your profile</h1>
+<% provide(:title, "Edit #{@user.name}") %>
 
-<form role = "form">
-  <%= form_for @user do |user_details| %>
+  <%= form_for @user, url: {action: "update" } do |user_details| %>
     <%= render partial: 'shared/validation', object: user_details.object %>
 
   <div class = "form-group">
@@ -25,8 +23,12 @@
     <%= user_details.password_field :password_confirmation, class: "form-control" %>
   </div>
 
-    <%= user_details.submit "Save changes", class: "btn btn-small btn-primary" %>
+  <div class = "checkbox">
+    <%= user_details.check_box :admin %>
+    <%= user_details.label :admin, "Admin?" %>
+  </div>
+
+    <%= user_details.submit "Save Changes", class: "btn btn-small btn-primary" %>
   <% end %>
 
-</form>
 
