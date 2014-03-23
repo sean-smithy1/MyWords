@@ -23,11 +23,6 @@
     <%= user_details.password_field :password_confirmation, class: "form-control" %>
   </div>
 
-  <div class = "checkbox">
-    <%= user_details.check_box :admin %>
-    <%= user_details.label :admin, "Admin?" %>
-  </div>
-
     <%= user_details.submit "Save Changes", class: "btn btn-small btn-primary" %>
   <% end %>
 
