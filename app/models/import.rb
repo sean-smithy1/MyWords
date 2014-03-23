@@ -22,38 +22,40 @@ include ActiveModel::Model
   def load_imported_lists(list_num)
     @spreadsheet = open_spreadsheet
     @list=List.find_by_id(list_id) || List.new
-    @list.update_attribute(:listname, @spreadsheet.cell(1, list_num))
 
     arry_import_words=words_in_list(list_num)
-    arry_old_list_words=@list.word_ids
+    arry_original_list_words=@list.word_ids
+    arry_new_list_words = arry_import_words | arry_original_list_words
 
-    unless enough_slots?(arry_import_words.count)
-      arry_new_list_words = arry_import_words & arry_old_list_words
-      return true if @list.word_ids=arry_new_list_words
+    if arry_new_list_words.count <= List::MAXWORDS
+      if @list.word_ids=arry_new_list_words
+        true
+      else
+        # Raise an exception - somthing went wrong with the save
+      end
+    else
+      self.errors[:base] << "The list #{@list.listname} exceeds the maximum of words #{List::MAXWORDS} allowed."
+      false
     end
-    self.errors[:base] << "The list #{@list.listname} exceeds the maximum of words #{List::MAXWORDS} allowed."
-    return false
-  end
-
-  def enough_slots?(numwords)
-    true if @list.words_remaining >= numwords
   end
 
   def number_of_lists
-    @spreadsheet.last_coloum > 10 ? 10 : @spreadsheet.last_coloum
+    @spreadsheet.last_column > List::MAXLISTS ? List::MAXLISTS : @spreadsheet.last_column
   end
 
-  def words_in_list(column)
-    (2..@spreadsheet.last_row).each do |import_word|
-      unless @spreadsheet.cell(import_word, column) == ""
-        word=Word.find_or_create_by(word: @spreadsheet.cell(import_word,1))
-        unless words_in_list.include?(word.id)
-          import_id[] << word.id
+  def words_in_list(col_num)
+    import_ids=[]
+    (2..@spreadsheet.last_row).each do |row_num|
+      unless @spreadsheet.cell(row_num, col_num) == ""
+          word=Word.find_or_create_by(word: @spreadsheet.cell(row_num, col_num))
+        unless import_ids.include?(word.id)
+          import_ids << word.id
         else
           self.errors[:base] << "The word #{word.word} is included multiple times in your list, it was skipped."
         end
       end
     end
+    import_ids
   end
 
   def open_spreadsheet

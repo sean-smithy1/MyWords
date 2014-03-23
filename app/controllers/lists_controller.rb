@@ -32,6 +32,9 @@ class ListsController < ApplicationController
 
   # TODO: Refractor
   def update
+    @list = List.find(params[:id])
+    arry_add_words=Array.new
+
     # Update Listname if change
     unless @list.listname == params[:list][:listname]
       @list.update_attribute(:listname, params[:list][:listname])
@@ -39,17 +42,29 @@ class ListsController < ApplicationController
 
     if words_are_unique?
       this_lists_words = params[:list][:words_attributes]
-      @list.words = [] if @list.persisted?
-      this_lists_words.each do |k,w|
-        add_word = Word.find_or_create_by(word: w[:word])
-        @list.words << add_word
-      end
-      if @list.save
-        redirect_to edit_list_path(@list), flash: { notice: "Successfully updated your list."}
+
+      if this_lists_words.count > List::MAXWORDS
+        @list.errors[:base] << "You have to many words in your list"
+        render :edit
         return
+      else
+        @list.words = [] if @list.persisted?
+        this_lists_words.each do |k,w|
+          the_word = Word.find_or_create_by(word: w[:word])
+          arry_add_words << the_word.id
+        end
       end
+
+      if @list.word_ids=arry_add_words
+          redirect_to edit_list_path(@list), flash: { notice: "Successfully updated your list."}
+      else
+          # Somthing went wrong with the save
+      end
+
+    else
+      @list.errors[:base] << "You have duplicate words in this list"
+      render :edit
     end
-    render :edit
   end
 
   def clear_words
@@ -74,19 +89,17 @@ class ListsController < ApplicationController
     word_counts=Hash.new(0)
     nested_words=params[:list][:words_attributes].map { |k,v| v[:word] }
     nested_words.each{ |val| word_counts[val]+=1 }
-    word_counts.reject!{ |val,count| count==1 }.keys
-    #puts "**Debug -- Words: #{word_counts}"
+    word_counts.reject!{ |val, count| count==1 }
 
     if word_counts.length==0
       return true
     else
-      @list.errors[:base] << "You have duplicate words in this list"
       return false
     end
   end
 
   def list_owner
-    unless list_owner?(params[:list_id])
+    unless list_owner?(params[:id])
       flash[:error] = "You must own the list you are modifing"
       redirect_to root_url
     end

@@ -1,6 +1,7 @@
 class List < ActiveRecord::Base
 
   MAXWORDS=50
+  MAXLISTS=10
 
   belongs_to :user
 
@@ -34,7 +35,11 @@ class List < ActiveRecord::Base
 
 private
   def max_words
-    self.errors[:base]<< "maximum #{MAXWORDS} words per list" if words.length > MAXWORDS
+    if words.length > MAXWORDS
+      self.errors[:base]<< "maximum #{MAXWORDS} words per list"
+      false
+    end
   end
+
 end
 
