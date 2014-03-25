@@ -7,10 +7,12 @@ class User < ActiveRecord::Base
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 
-  validates :name, presence: true, length: { maximum: 50 }
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
-  validates :password, presence: true, length: { minimum: 6 }, on: :create
-  validates :password_confirmation, presence: true, on: :create
+  validates_presence_of :name
+  validates_length_of :name, maximum: 50
+  validates_presence_of :email
+  validates_uniqueness_of :email, case_sensitive: false
+  validates_format_of :email, with: VALID_EMAIL_REGEX
+  validates_length_of :password, minimum: 6, on: :create
 
   has_many :lists, :dependent => :destroy
 

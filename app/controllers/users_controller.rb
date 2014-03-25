@@ -29,7 +29,6 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    logger.debug "***---- I am here"
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
       sign_in @user

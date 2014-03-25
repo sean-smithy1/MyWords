@@ -7,9 +7,7 @@ include ActiveModel::Model
       attributes.each { |name, value| send("#{name}=", value) }
   end
 
-  def persisted?
-    false
-  end
+##Have Removed the persisted method. Not needed I beleive
 
   def save
     if load_imported_lists(1)

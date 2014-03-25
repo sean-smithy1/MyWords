@@ -48,8 +48,9 @@
             <ul class="dropdown-menu">
             <% if signed_in? %>
               <li><%= link_to "Profile", current_user %></li>
-              <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-              <li><%= link_to "All Users", users_path %>
+              <li><%= link_to "Details", edit_user_path(current_user) %></li>
+              <li><%= link_to "Change Password", new_password_path %></li>
+              <li><%= link_to "Show All Users", users_path %>
               <li class="divider"></li>
               <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
             <% else %>

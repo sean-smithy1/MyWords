@@ -10,8 +10,9 @@ MyWords::Application.routes.draw do
   end
 
   resources :imports, only: [:new, :create]
-
+  resources :passwords
   resources :sessions, only: [:new, :create, :destroy]
+
 
   root to: 'static_pages#home'
 
