@@ -6,6 +6,7 @@ class PasswordsController < ApplicationController
   def create
     @password_form = PasswordForm.new(current_user)
     if @password_form.submit(params[:password_form])
+      sign_in current_user
       redirect_to current_user, notice: "Successfully changed password."
     else
       render "new"

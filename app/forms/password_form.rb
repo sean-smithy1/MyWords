@@ -18,6 +18,7 @@ class PasswordForm
     self.new_password_confirmation = params[:new_password_confirmation]
     if valid?
       @user.password = new_password
+      @user.password_confirmation = new_password_confirmation
       @user.save!
       true
     else

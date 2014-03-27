@@ -6,10 +6,10 @@
 
       <%= list.label :listname, 'List Name' %>
       <%= list.text_field :listname %>
-
+      <br />
       <%= list.label :listtype, 'List Type' %>
       <%= list.select(:listtype, [['Personel','u'], ['School', 's'], ['Free','f']]) %>
-
+      <br />
       <div class="btn-group-sm">
         <%= list.submit "Create List", class: "btn btn-primary" %>
       </div>
