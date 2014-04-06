@@ -1,7 +1,7 @@
-<h1>Import words Mult-List</h1>
+<h1>Import words <%= @list.listname if @list.present?  %></h1>
 
 <p>
-  A CSV, Excel or Open Document Speadsheet can be used to import words your lists. You are allowed to import up to <%= List.maxwords %> words per list. You have <%= @list.words_remaining if @list.present? %> remaining in this list.
+  A CSV, Excel or Open Document Speadsheet can be used to import words into your list. You are allowed to import up to <%= List.maxwords %> words per list. You have <%= @list.words_remaining if @list.present? %> remaining in this list.
 </p>
 
 <ul>

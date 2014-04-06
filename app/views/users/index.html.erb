@@ -8,4 +8,5 @@
     <%= render partial: 'user', locals: { user: user } %>
   <% end %>
 
+  <%= will_paginate @users %>
 </ul>

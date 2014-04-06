@@ -9,8 +9,8 @@ MyWords::Application.routes.draw do
     resources :words
   end
 
-  resources :imports, only: [:new, :create]
-  resources :passwords
+  resources :imports, only: [:new, :create, :edit, :update]
+  resources :passwords, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
 
 

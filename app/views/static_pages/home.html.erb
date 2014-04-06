@@ -1,10 +1,9 @@
 <div class="center-block">
   <div>
+    </br>
     <h1>MyWords</h1>
-    </br>
-    </br>
     <% if signed_in? %>
-      <p> Welcome Back <%= current_user.name %> </p>
+      <h2> Welcome Back <%= current_user.name %> </h2>
     <% else %>
       <%= link_to "Sign up now!", signup_path, class: "btn btn-small btn-primary" %>
     <% end %>

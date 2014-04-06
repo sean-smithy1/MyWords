@@ -2,17 +2,25 @@ class ImportsController < ApplicationController
   include ListsHelper
 
   before_filter :signed_in_user, only: [:new, :create]
-  before_filter :list_owner, only: [:new, :create]
+  before_filter :list_owner, only: [:edit, :update]
 
   def new
-    @list=List.find(params[:list_id]) if params[:list_id].present?
-    @import_lists = Import.new
+
   end
 
   def create
-    @import_lists = Import.new(import_list_params)
+
+  end
+
+  def edit
+    @list=List.find(params[:list_id]) if params[:list_id].present?
+    @import_form = ImportForm.new
+  end
+
+  def udate
+   @import_form = ImportForm.new(import_list_params)
     @list=List.find(@import_lists.list_id)
-    if @import_lists.save
+    if @import_form.save
       redirect_to edit_list_path(@list), flash: { notice: "Imported list successfully."}
     else
       render :new
@@ -32,7 +40,7 @@ private
 
 
   def import_list_params
-    params.require(:import).permit(:file, :list_id
+    params.require(:import_form).permit(:file, :list_id
       )
   end
 end

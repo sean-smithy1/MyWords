@@ -34,9 +34,6 @@ group :test do
   gem 'factory_girl_rails', '~>4.3.0'
 end
 
-group :production do
-end
-
 group :development, :test do
   # RSpec (unit tests, some integration tests)
   gem 'spork-rails', '~>4.0'

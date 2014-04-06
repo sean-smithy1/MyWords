@@ -21,7 +21,7 @@ end
 
 #Word Associations
 describe "Creating or Associating Words" do
-  before { @list1=FactoryGirl.create(:list, listname: "List1") }
+  before { @list1=FactoryGirl.create(:list_with_words, listname: "List1") }
 
   it "should create words not in the DB" do
     @list1.words.count.should == 6
@@ -33,7 +33,7 @@ describe "Creating or Associating Words" do
   end
 
   it "should associate words that exist in the DB" do
-    list2=FactoryGirl.create(:list, listname: "List2")
+    list2=FactoryGirl.create(:list_with_words, listname: "List2")
     list2.words.count.should == 6
     Word.count == 6
   end

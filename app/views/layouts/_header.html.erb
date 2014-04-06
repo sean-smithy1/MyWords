@@ -52,7 +52,7 @@
               <li><%= link_to "My Profile", current_user %></li>
               <li><%= link_to "My Details", edit_user_path(current_user) %></li>
               <li><%= link_to "My Password Change", new_password_path %></li>
-              <li><%= link_to "MyWords Users", users_path %>
+              <li><%= link_to "MyWords Users", users_path if current_user.admin? %>
               <li class="divider"></li>
               <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
             <% else %>

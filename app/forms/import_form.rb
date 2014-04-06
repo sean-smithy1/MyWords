@@ -1,4 +1,4 @@
-class Import
+class ImportForm
 include ActiveModel::Model
 
   attr_accessor :file, :list_id
@@ -6,8 +6,6 @@ include ActiveModel::Model
   def initialize(attributes = {})
       attributes.each { |name, value| send("#{name}=", value) }
   end
-
-##Have Removed the persisted method. Not needed I beleive
 
   def save
     if load_imported_lists(1)

@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       sign_in @user
       redirect_to @user
     else
-      flash[:error] = "Profile not update"
+      flash[:error] = "Error - profile not updated"
       render 'edit'
     end
   end
@@ -62,7 +62,10 @@ private
     end
 
   def admin_user
-    redirect_to(root_path) unless current_user.admin?
+    unless current_user.admin?
+      flash[:error] = "Insufficient rights"
+      redirect_to root_path
+    end
   end
 
   def user_params
