@@ -9,6 +9,8 @@ FactoryGirl.define do
     factory :admin do
       admin true
     end
+
+#    association :list
   end
 
   factory :lists_word do
@@ -18,7 +20,7 @@ FactoryGirl.define do
 
   factory :list do
     user_id 1
-    listname "PlaceHolder"
+    sequence(:listname) { |n| "Listname_#{n}"}
     listtype "u"
 
     factory :list_with_words do
@@ -29,6 +31,8 @@ FactoryGirl.define do
         FactoryGirl.create_list(:lists_word, evaluator.words_count, list: list)
       end
     end
+
+ #   association :user
   end
 
    factory :word do

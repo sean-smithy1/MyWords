@@ -18,7 +18,7 @@ class ImportsController < ApplicationController
   end
 
   def udate
-   @import_form = ImportForm.new(import_list_params)
+    @import_form = ImportForm.new(import_list_params)
     @list=List.find(@import_lists.list_id)
     if @import_form.save
       redirect_to edit_list_path(@list), flash: { notice: "Imported list successfully."}

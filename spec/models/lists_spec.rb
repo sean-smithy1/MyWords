@@ -27,9 +27,13 @@ describe "Creating or Associating Words" do
     @list1.words.count.should == 6
   end
 
-  pending ( it "should not allow duplicate words" ) do
-    @list1.words << Word.new(word: "1_Word")
-    it { should_not be_valid }
+  describe "should not allow duplicate words" do
+    let (:numwords) { @list1.words.count }
+
+    it 'should have the same number of words' do
+      @list1.words << Word.new(word: "1_Word")
+      @list1.words.count == numwords
+    end
   end
 
   it "should associate words that exist in the DB" do
